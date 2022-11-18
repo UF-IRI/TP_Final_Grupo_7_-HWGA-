@@ -39,7 +39,7 @@ typedef struct {
 } insurance;
 
 typedef struct {
-	long unsigned int dni;
+	unsigned int dni;
 	string namePacient;
 	string lastNAmePacient;
 	char sex;
@@ -51,16 +51,19 @@ typedef struct {
 typedef struct {
 	string namePacientSecL;
 	string lastNamePacientSecL;
-	long unsigned int dniSecL;
+	unsigned int dniSecL;
 	string medicalInsuranceSecL;
 	string idDoctorSecL;
 	string cellphoneNumberSecL;
 	string answerSecL;
 }secretaryList;
-
+#define 10ANIOS =315576000; //10 años en segundos
 
 //POCHI
 int keepingUpWithThePacients(pacient paux, int sizeListApp, appointment* listApp);
+appointment lastApp(unsigned int dniAux, int sizeListApp, appointment* listApp);
+time_t convertDate(string dato); //LA COPIE DE LA CARPETITA DE AGOS, SI CAMBIAMOS LO QUE DIJO EZE HAY QUE CORREGIRLA !!!!!!
+int compareDates(string fDate, string sDate); // LA MISMA QUE HABÍAMOS HECHO PERO CON LA ÚLTIMA LÍNEA AHÍ PORQUE NO SÉ POR QUÉ
 
 
 
