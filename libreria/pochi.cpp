@@ -162,3 +162,50 @@ int compareDates(time_t fDate, time_t sDate, double &timeBetweenDates) // le pas
 }
 //le doy dos fechas, me devuelve la posición de la más reciente y me llena el double con la diferencia entre las fechas
 
+void addPacient(pacient*& listP, int& sizeP, pacient auxP)
+{
+	if (listP == nullptr)
+		return;
+	pacient * newListP = new pacient[sizeP + 1];
+	int i;
+	for (i = 0; 1 < sizeP; i++)
+		newListP[i] = listP[i];
+	newListP[i] = auxP;
+	
+	sizeP++;
+	delete[] listP;
+	listP = newListP;
+	return;
+
+}
+void addAppointment(appointment*& listApp, int& sizeApp, appointment auxApp)
+{
+	if (listApp == nullptr)
+		return;
+	appointment* newListApp = new appointment[sizeApp + 1];
+	int i;
+	for (i = 0; i < sizeApp; i++)
+		newListApp[i] = listApp[i];
+	newListApp[i] = auxApp;
+
+	sizeApp++;
+	delete[] listApp;
+	listApp = newListApp;
+	return;
+}
+void addContact(contact*& listCon, int& sizeCon, contact auxCon)
+{
+	if (listCo == nullptr)
+		return;
+	contact newListCon = new contact[sizeCon];
+	int i;
+	for (i = 0; i < sizeCon; i++)
+		newListCon[i] = listCon[i];
+	newListCon = auxCon;
+
+	sizeCon++;
+	delete[] listCon;
+	listCon = newListCon;
+	return;
+}
+//TODAS RESIZE NORMALITAS 
