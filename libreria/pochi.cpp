@@ -1,10 +1,64 @@
 
 #include"FUNCIONES.h"
 
-int keepingUpWithThePacients(pacient paux, int sizeListApp, appointment* listApp)
+int keepingUpWithThePacients(pacient paux, int sizeListApp, appointment* listApp) // 1= recoverable//2=unrecoverable//3=queti
 {
+	if (listApp == nullptr)
+		return -1; //VERIFICO ERROR <3
+	int category = -1; //INICIALIZO EN -1 ASÍ LA DEVUELVO AL FINAL
+	bool went;
+	paux.state = UP(paux.state);
+	if (paux.state == "INTERNADO")
+		category = 3; // ya sé que está internado, no lo voy a llamar
+	else
+	{
 
+
+		if (paux.state == "FALLECIDO")
+			category = 2;//irrecuperable
+		else
+		{
+			time_t current = time(0); //hoy
+			appointment dummyApp = lastApp(paux.dni, sizeListApp, listApp); //dummy porque solo me importan la fecha y el booleano
+			time_t lastAppDate = convertToTimeT(dummyApp.dateAppointment);
+			double timeBD;
+			int LastD = compareDates(current, lastAppDate, &timeBD);
+			switch (lastD)
+			{
+			case -1:
+				return -1;
+			case 1: //la fecha más nueva es hoy --> ya pasó
+			{
+
+				if (timeBD < 10ANIOS)//tengo que ver si fue hace más de 10 años
+				{
+					if (dummyApp.asistance) // hace 10 años y vino --> OK --> no me importa
+						category = 3;
+					else //hace menos de 10 años y no vino --> lo tengo que llamar llamar
+						category = 1;
+				}
+				else //fue hace más de 10 años --> no lo puedo recuperar
+					category = 2;
+			}
+			case 2://la fecha más nueva es la de la app --> todavía no fue 
+			{
+				category = 3; //tiene programada una appointment para el futuro --> no me importa
+			}
+			}
+		}
+	}
+	return category;
 }
+//devuelve un int con la categoría
+string UP(string word)
+{
+	for (int i = 0; i < strlen(word); i++)
+	{
+		word[i] = toupper(word[i]);
+	}
+	return word;
+}
+//me pasa la palabra a mayúscula
 appointment lastApp(unsigned int dniAux, int sizeListApp, appointment* listApp)
 {
 	appointment lastAppointment;
@@ -39,9 +93,8 @@ appointment lastApp(unsigned int dniAux, int sizeListApp, appointment* listApp)
 	
 	return lastAppointment;
 }
-
-
-time_t convertDate(string dato)
+//le doy un dni y me devuelve la ultima consulta del paciente
+time_t convertDateToTimeT(string dato)
 {
 	int i = 0;
 	int day, month, year;
@@ -92,14 +145,12 @@ time_t convertDate(string dato)
 
 	return finalDate;
 }
-int compareDates(string fDate, string sDate) // le paso una fecha 1 y una fecha 2 y me devuelve el nro de la más reciente
+//le doy una string y me la devuelve en time_t
+int compareDates(time_t fDate, time_t sDate, double &timeBetweenDates) // le paso una fecha 1 y una fecha 2 y me devuelve el nro de la más reciente
 {
-	time_t firstD = convertDate(fDate);
-	time_t secondD = convertDate(sDate);
-
+	
 	int lastDate;
-
-	double timeBetweenDates = difftime(secondD, firstD);
+	timeBetweenDates = difftime(sDate, fDate); //ya me llenó el double que pasé por alias
 	if (timeBetweenDates == -1)
 		lastDate = -1; //verifico que no me devuelva un error
 	else  // hace t2-t1 entonces si es menor que 0 es porque t1 es más grande que t2 --> t1 es más nueva que t2
@@ -109,3 +160,5 @@ int compareDates(string fDate, string sDate) // le paso una fecha 1 y una fecha 
 
 	return lastDate;
 }
+//le doy dos fechas, me devuelve la posición de la más reciente y me llena el double con la diferencia entre las fechas
+
