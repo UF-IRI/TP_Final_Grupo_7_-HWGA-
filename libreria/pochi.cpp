@@ -208,4 +208,114 @@ void addContact(contact*& listCon, int& sizeCon, contact auxCon)
 	listCon = newListCon;
 	return;
 }
+void addDoctor(doctor*& listDoc, int& sizeDoc, doctor auxDoc)
+{
+	if (listDoc == nullptr)
+		return;
+	doctor* newListDoc = new doctor[sizeDoc + 1];
+	int i;
+	for (i = 0; i < sizeDoc; i++)
+		newListDoc[i] = listDoc[i];
+	newListDoc[i] = auxDoc;
+
+	sizeDoc++;
+	delete[]listDoc;
+	listDoc = newListDoc;
+	return;
+}
+void addSecretary(secretaryList*& listSec, int& sizeSec, secretaryList auxSec)
+{
+	if (listSec == nullptr)
+		return;
+
+	secretaryList* newListSec = new secretaryList[sizeSec + 1];
+	int i;
+	for (i = 0; i < sizeSec; i++)
+		newListSec[i] = listSec[i];
+	newListSec[i] = auxSec;
+
+	sizeSec++;
+	delete[] listSec;
+	listSec = newListSec;
+	return;
+}
+void addString(string*& list, int& size, string auxStr)
+{
+	if (list == nullptr)
+		return;
+
+	string* newList = new string[size + 1];
+	int i;
+
+	for (i = 0; i < size; i++)
+		newList[i] = list[i];
+	newList[i] = auxStr;
+
+	size++;
+	delete[] list;
+	list = newList;
+	return;
+}
 //TODAS RESIZE NORMALITAS 
+
+void writeLists(pacient* totalList, int totalSize, pacient*& listUnrecoverable, int& sizeUnrecoverable, pacient*& listRecoverable, int& sizeRecoverable, int sizeApp, appointment* listApp)
+{
+	if (totalList == nullptr || listUnrecoverable == nullptr || listRecoverable == nullptr || listApp == nullptr)
+		return;
+
+	int i;
+	int cat;
+
+	for (i = 0; i < totalSize; i++)
+	{
+		cat = keepingUpWithThePacients(totalList[i], sizeApp, listApp);
+		switch (cat)
+		{
+		case 1:
+		{
+			//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			break;
+		}
+		case 2: //irrecuperable
+		{
+			addPacient(listUnrecoverable, sizeUnrecoverable, totalList[i]); //lo agrego a la lista de irrecuperables
+		}
+
+		}
+	}
+}
+//le paso una lista con todos los pacientes y me devuelve dos listas separadas de recuperables/no recuperables
+void generateInsuranceList(pacient* totalList, int sizeTotal, string*& listIn, int& sizeIn)
+{
+	if (totalList == nullptr || listIn == nullptr)
+		return;
+
+	bool first;
+	int i;
+	for (i=0;i<sizeTotal;i++)
+	{
+		first = true; //vuelvo a inicializar
+		
+		for (int k = i - 1; k >= 0; k--) //recorro el array para arriba y me fijo si ya estaba la obra social del paciente que estoy leyendo
+		{
+			if (listIn[k] == totalList[i].idInsurance)
+				first = false;
+		}
+
+		if (first)
+			addString(listIn, sizeIn, totalList[i].idInsurance);
+	}
+	return;
+}
+//lee el array de pacientes y crea una lista de tipo string con las obras sociales presentes en la lista de pacientes --> asumimos que el hospital trabaja únicamente con las obras sociales de la lista (todas las os con las que trabaja e´stán incluídas)
+
+
+
+
+
+
+
+
+
+
+
