@@ -2,9 +2,9 @@
 #include"FUNCIONES.h"
 
 //READ
-void readPac(fstream rPac, pacients*& listPac, int& sizePac)
+void readPac(fstream rPac, pacient*& listPac, int& sizePac)
 {
-	if (!((rPac.is_open) || listPac == nullptr))
+	if (!(rPac.is_open()) || listPac == nullptr)
 		return;
 	string dummy;
 	pacient aux;
@@ -17,6 +17,53 @@ void readPac(fstream rPac, pacients*& listPac, int& sizePac)
 	}
 	return;
 }
+void readCon(fstream rCon, contact*& listCon, int& sizeCon)
+{
+	if (!(rCon.is_open()) || listCon == nullptr)
+		return;
+	string dummy;
+	contact aux;
+	rCon >> dummy >> dummy >> dummy >> dummy >> dummy >> dummy >> dummy >> dummy >> dummy;
+
+	while (rCon)
+	{
+		rCon >> aux.dniContact >> dummy >> aux.numberTelephone >> dummy >> aux.numberPhone >> dummy >> aux.adress >> dummy >> aux.mail;
+		addContact(listCon, sizeCon, aux);
+	}
+	return;
+
+}
+void readApp(fstream rApp, appointment*& listApp, int& sizeApp)
+{
+	if (!(rApp.is_open()) || listApp == nullptr)
+		return;
+	string dummy;
+	appointment aux;
+	rApp >> dummy >> dummy >> dummy >> dummy >> dummy >> dummy >> dummy >> dummy >> dummy;
+
+	while (rApp)
+	{
+		rApp >> aux.dniPacient >> dummy >> aux.dateRequest >> dummy >> aux.dateAppointment >> dummy >> aux.asistance >> dummy >> aux.idDoctor;
+		addAppointment(listApp, sizeApp, aux);
+	}
+	return;
+}
+void readDoc(fstream rDoc, doctor*& listDoc, int& sizeDoc)
+{
+	if (!(rDoc.is_open()) || listDoc == nullptr)
+		return;
+	string dummy;
+	doctor aux;
+	rDoc >> dummy >> dummy >> dummy >> dummy >> dummy >> dummy >> dummy >> dummy >> dummy >> dummy >> dummy;
+
+	while (rDoc)
+	{
+		rDoc >> aux.doctorId >> dummy >> aux.nameDoctor >> dummy >> aux.lastNameDoctor >> dummy >> aux.telephoneDoctor >> dummy >> aux.specialty >> dummy >> aux.active;
+		addDoctor(listDoc, sizeDoc, aux);
+	}
+	return;
+}
+
 
 
 //RESIZE
@@ -195,9 +242,42 @@ int compareDates(time_t fDate, time_t sDate, double& timeBetweenDates) // le pas
 }
 //le doy dos fechas, me devuelve la posición de la más reciente y me llena el double con la diferencia entre las fechas
 
-//
+//AUXILIARES
+string UP(string word)
+{
+	for (int i = 0; i < strlen(word); i++)
+	{
+		word[i] = toupper(word[i]);
+	}
+	return word;
+}
+//me pasa la palabra a mayúscula
+void generateInsuranceList(pacient* totalList, int sizeTotal, string*& listIn, int& sizeIn)
+{
+	if (totalList == nullptr || listIn == nullptr)
+		return;
+
+	bool first;
+	int i;
+	for (i = 0; i < sizeTotal; i++)
+	{
+		first = true; //vuelvo a inicializar
+
+		for (int k = i - 1; k >= 0; k--) //recorro el array para arriba y me fijo si ya estaba la obra social del paciente que estoy leyendo
+		{
+			if (listIn[k] == totalList[i].idInsurance)
+				first = false;
+		}
+
+		if (first)
+			addString(listIn, sizeIn, totalList[i].idInsurance);
+	}
+	return;
+}
+//lee el array de pacientes y crea una lista de tipo string con las obras sociales presentes en la lista de pacientes --> asumimos que el hospital trabaja únicamente con las obras sociales de la lista (todas las os con las que trabaja e´stán incluídas)
 
 
+//CATEGORIZAR PACIENTES
 int keepingUpWithThePacients(pacient paux, int sizeListApp, appointment* listApp) // 1= recoverable//2=unrecoverable//3=queti
 {
 	if (listApp == nullptr)
@@ -247,15 +327,6 @@ int keepingUpWithThePacients(pacient paux, int sizeListApp, appointment* listApp
 	return category;
 }
 //devuelve un int con la categoría
-string UP(string word)
-{
-	for (int i = 0; i < strlen(word); i++)
-	{
-		word[i] = toupper(word[i]);
-	}
-	return word;
-}
-//me pasa la palabra a mayúscula
 appointment lastApp(unsigned int dniAux, int sizeListApp, appointment* listApp)
 {
 	appointment lastAppointment;
@@ -291,12 +362,38 @@ appointment lastApp(unsigned int dniAux, int sizeListApp, appointment* listApp)
 	return lastAppointment;
 }
 //le doy un dni y me devuelve la ultima consulta del paciente
+void writeLists(pacient* totalList, int totalSize, pacient*& listUnrecoverable, int& sizeUnrecoverable, pacient*& listRecoverable, int& sizeRecoverable, int sizeApp, appointment* listApp)
+{
+	if (totalList == nullptr || listUnrecoverable == nullptr || listRecoverable == nullptr || listApp == nullptr)
+		return;
 
+	int i;
+	int cat;
 
+	for (i = 0; i < totalSize; i++)
+	{
+		cat = keepingUpWithThePacients(totalList[i], sizeApp, listApp);
+		switch (cat)
+		{
+		case 1://recuperable
+		{
+			//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			break;
+		}
+		case 2: //irrecuperable
+		{
+			addPacient(listUnrecoverable, sizeUnrecoverable, totalList[i]); //lo agrego a la lista de irrecuperables
+			break;
+		}
+		//no pongo deffault porque que me importa 
+		}
+	}
 
+	return;
+}
+//le paso una lista con todos los pacientes y me devuelve dos listas separadas de recuperables/no recuperables
 
-
-
+//GENERAR CON RANDOM
 void generateRandomApp(appointment lastApp, secretaryList pacient, appointment*& previousApps, doctor* docList)
 {
 	if (previousApps == nullptr || docList == nullptr)
@@ -314,73 +411,31 @@ void generateRandomApp(appointment lastApp, secretaryList pacient, appointment*&
 		int year = rand() % 3 + currentYear; //si es un 0 --> este año; si es 1 --> el año que viene; si es 2 --> en dos años // asumo que no se puede programar una app para dentro de 25 años porque ya se murieron todos, abrazo
 		int month = rand() % 12 + 1;//me da un nro de 0 a 11 y lo cambio para que sea de 1 a 12 
 		int day;
-		switch (month)
-		{
-		case 2:
-		{
-			day = rand() % 28 + 1;//no verifico que sea un año bisiesto
-			break;
-		} 
-		}
+		if (month == 2)
+			day = rand() % 28 + 1;//no verifico que sea un año bisiesto, el 29 es dia de ñoquis y mis doctores no atienden
+		else 
+			if (month == 4 || month == 6 || month == 9 || month == 11)
+			{
+				day = rand() % 30 + 1;
+			}
+			else
+				day = rand() % 31 + 1;
+		//me generé la fecha random
+		string dateNextApp = to_string(day) + '/' + to_string(month) + '/' + to_string(year);//la paso a string 
+		double timeBet;
+		int withToday = compareDates(today, dateNextApp, &timeBet);//NO SE POR QUE NO ME LO TOMA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		if (withToday == 1) //ME ASEGURO QUE ESTE EN EL FUTURO
+			again = true;
 
-	} while (again);
+	} while (again); //no le pongo un límite de consultas por día porque asumo que mi hospital es mágico y tiene 210998765 horas al dia para atender gente porque les re imprta la salud del pueblo :)
+
+
 
 
 
 }
 //le paso el paciente, la lista de doctores y la lista de nuevas consultas que voy armando y me agrega una nueva para ese paciente
 
-
-void writeLists(pacient* totalList, int totalSize, pacient*& listUnrecoverable, int& sizeUnrecoverable, pacient*& listRecoverable, int& sizeRecoverable, int sizeApp, appointment* listApp)
-{
-	if (totalList == nullptr || listUnrecoverable == nullptr || listRecoverable == nullptr || listApp == nullptr)
-		return;
-
-	int i;
-	int cat;
-
-	for (i = 0; i < totalSize; i++)
-	{
-		cat = keepingUpWithThePacients(totalList[i], sizeApp, listApp);
-		switch (cat)
-		{
-		case 1:
-		{
-			//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			break;
-		}
-		case 2: //irrecuperable
-		{
-			addPacient(listUnrecoverable, sizeUnrecoverable, totalList[i]); //lo agrego a la lista de irrecuperables
-		}
-
-		}
-	}
-}
-//le paso una lista con todos los pacientes y me devuelve dos listas separadas de recuperables/no recuperables
-void generateInsuranceList(pacient* totalList, int sizeTotal, string*& listIn, int& sizeIn)
-{
-	if (totalList == nullptr || listIn == nullptr)
-		return;
-
-	bool first;
-	int i;
-	for (i=0;i<sizeTotal;i++)
-	{
-		first = true; //vuelvo a inicializar
-		
-		for (int k = i - 1; k >= 0; k--) //recorro el array para arriba y me fijo si ya estaba la obra social del paciente que estoy leyendo
-		{
-			if (listIn[k] == totalList[i].idInsurance)
-				first = false;
-		}
-
-		if (first)
-			addString(listIn, sizeIn, totalList[i].idInsurance);
-	}
-	return;
-}
-//lee el array de pacientes y crea una lista de tipo string con las obras sociales presentes en la lista de pacientes --> asumimos que el hospital trabaja únicamente con las obras sociales de la lista (todas las os con las que trabaja e´stán incluídas)
 
 
 
