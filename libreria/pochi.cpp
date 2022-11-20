@@ -128,6 +128,7 @@ void addDoctor(doctor*& listDoc, int& sizeDoc, doctor auxDoc)
 	listDoc = newListDoc;
 	return;
 }
+
 void addSecretary(secretaryList*& listSec, int& sizeSec, secretaryList auxSec)
 {
 	if (listSec == nullptr)
@@ -214,6 +215,7 @@ time_t convertDateToTimeT(string dato)
 
 	return finalDate;
 }
+
 //le doy una string y me la devuelve en time_t
 string convertDateToString(time_t dato)
 {
@@ -225,6 +227,7 @@ string convertDateToString(time_t dato)
 	return dateSTR;
 
 }
+
 //le doy un time_t y me lo devuelve en string
 int compareDates(time_t fDate, time_t sDate, double& timeBetweenDates) // le paso una fecha 1 y una fecha 2 y me devuelve el nro de la más reciente
 {
@@ -252,6 +255,8 @@ string UP(string word)
 	return word;
 }
 //me pasa la palabra a mayúscula
+
+
 void generateInsuranceList(pacient* totalList, int sizeTotal, string*& listIn, int& sizeIn)
 {
 	if (totalList == nullptr || listIn == nullptr)
@@ -327,6 +332,8 @@ int keepingUpWithThePacients(pacient paux, int sizeListApp, appointment* listApp
 	return category;
 }
 //devuelve un int con la categoría
+
+
 appointment lastApp(unsigned int dniAux, int sizeListApp, appointment* listApp)
 {
 	appointment lastAppointment;
@@ -362,6 +369,8 @@ appointment lastApp(unsigned int dniAux, int sizeListApp, appointment* listApp)
 	return lastAppointment;
 }
 //le doy un dni y me devuelve la ultima consulta del paciente
+
+
 void writeLists(pacient* totalList, int totalSize, pacient*& listUnrecoverable, int& sizeUnrecoverable, pacient*& listRecoverable, int& sizeRecoverable, int sizeApp, appointment* listApp)
 {
 	if (totalList == nullptr || listUnrecoverable == nullptr || listRecoverable == nullptr || listApp == nullptr)
