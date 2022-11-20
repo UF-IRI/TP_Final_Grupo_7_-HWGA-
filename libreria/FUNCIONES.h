@@ -58,7 +58,8 @@ typedef struct {
 	string answerSecL;
 }secretaryList;
 
-#define 10ANIOS =315576000; //10 años en segundos
+#define 10ANIOS =315576000 //10 años en segundos
+#define currentYear=2022
 
 //POCHI
 int keepingUpWithThePacients(pacient paux, int sizeListApp, appointment* listApp);//categoriza el paciente
@@ -68,14 +69,19 @@ int compareDates(string fDate, string sDate, double &timeBetweenDates); // paso 
 string UP(string word);//pasa a mayuscula una palabra
 void writeLists(pacient* totalList, int totalSize, pacient*& listUnrecoverable, int& sizeUnrecoverable, pacient*& listRecoverable, int& sizeRecoverable, int sizeApp, appointment* listApp); //le paso la lista general y me arma las dos listas
 void generateInsuranceList(pacient* totalList, int sizeTotal, string*& listIn, int& sizeIn);
+appointment generateRandomApp(appointment lastApp, secretaryList pacient, appointment*& previousApps, doctor* docList);
 //lee el array de pacientes y crea una lista de tipo string con las obras sociales presentes en la lista de pacientes --> asumimos que el hospital trabaja únicamente con las obras sociales de la lista (todas las os con las que trabaja e´stán incluídas)
+string convertDateToString(time_t dato);
 
+//read
+void readPac(fstream rPac, pacients*&listPac, int&sizePac);
+//resize
 void addPacient(pacient*& listP, int& sizeP, pacient auxP);
 void addAppointment(appointment*& listApp, int& sizeApp, appointment auxApp);
 void addContact(contact*& listCon, int& sizeCon, contact auxCon);
 void addDoctor(doctor*& listDoc, int& sizeDoc, doctor auxDoc);
 void addSecretary(secretaryList*& listSec, int& sizeSec, secretaryList auxSec);
-void addString(string*& list, int& size, string auxStr);//TODAS FUNCIONES RESIZE
+void addString(string*& list, int& size, string auxStr);
 
 //FALTAN:
 secretaryList convertToSecretary(pacient paux, appointment* listApp, int sizeApp, contact* listCon); //le paso un paciente y me lo convierte en el struct secretaría
