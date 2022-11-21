@@ -78,7 +78,7 @@ void addString(string*& list, int& size, string auxStr);
 
 //MANIPULAR FECHAS:
 time_t convertDateToTimeT(string dato); //LA COPIE DE LA CARPETITA DE AGOS, SI CAMBIAMOS LO QUE DIJO EZE HAY QUE CORREGIRLA !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-int compareDates(string fDate, string sDate, double& timeBetweenDates); // paso una fecha1 y una fecha2, me devuelve el nro de la más reciente y me pasa por alias la dif
+int compareDates(time_t fDate, time_t sDate, double& timeBetweenDates); // paso una fecha1 y una fecha2, me devuelve el nro de la más reciente y me pasa por alias la dif
 string convertDateToString(time_t dato);
 
 //CATEGORIZAR:
@@ -94,11 +94,12 @@ string UP(string word);//pasa a mayuscula una palabra
 void generateInsuranceList(pacient* totalList, int sizeTotal, string*& listIn, int& sizeIn);
 
 
-
-
-
 appointment generateRandomApp(appointment lastApp, secretaryList pacient, appointment*& previousApps, doctor* docList);
 //lee el array de pacientes y crea una lista de tipo string con las obras sociales presentes en la lista de pacientes --> asumimos que el hospital trabaja únicamente con las obras sociales de la lista (todas las os con las que trabaja e´stán incluídas)
+
+
+//ESCRIBIR ARCHIVOS:
+void writeFileUnrecoverable(fstream rUnrecoverable, int sizeUnrecoverable, pacient* listUnrecoverable);
 
 
 

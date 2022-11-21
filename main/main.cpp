@@ -24,32 +24,47 @@ int main()
 
 	rPac.open(routePac, ios::in);
 	pacient* listPac = new pacient[sizePac];
-	readPac(rPac, listPac, &sizePac);
+	readPac(rPac, listPac, &sizePac); //me lleno la lista de pacientes
 	rPac.close();
 	
 	rCon.open(routeCon, ios::in);
-	contact* listCon = new contact[sizeCon];
+	contact* listCon = new contact[sizeCon]; //me lleno la lista de contactos
 	readCon(rCon, listCon, &sizeCon);
 	rCon.close();
 
 	rApp.open(routeApp, ios::in);
-	appointment* listApp = new appointment[sizeApp];
+	appointment* listApp = new appointment[sizeApp]; //me lleno la lista de consultas
 	readApp(rApp, listApp, &sizeApp);
 	rApp.close();
 
 	rDoc.open(routeDoc, ios::in);
-	doctor* listDoc = new doctor[sizeDoc];
+	doctor* listDoc = new doctor[sizeDoc]; //me lleno la lista de medicos
 	readDoc(rDoc, listDoc, &sizeDoc);
-	readDoc.close();
+	rDoc.close();
 
+	int sizeUnrecoverable = 0;
+	int sizeRecoverable = 0;
+	pacient* listUnrecoverable = new pacient[sizeUnrecoverable];
+	pacient* listRecoverable = new pacient[sizeRecoverable];
+	writeLists(listPac, sizePac, listUnrecoverable, sizeUnrecoverable, listRecoverable, sizeRecoverable, sizeApp, listApp); //escribo las dos listas de pacientes que me interesan
+	delete[]listPac; //como ya me cree la dos listas de pacientes q me interesan borro lo otro;
+	listPac = NULL;
 
-	//LABURAR ACAAAAAA
 
 	string routeRecoverable = (BASE PATH + "../data_files/output/Recoverable.csv");
 	string routeUnrecoverable = (BASE PATH + "../data_files/output/Unrecoverable.csv");
 
+	fstream rUnrecoverable;
+	rUnrecoverable.open(routeUnrecoverable, ios::out);//abro el archivo de irrecuperables para escritura
+	writeFileUnrecoverable(rUnrecoverable, sizeUnrecoverable, listUnrecoverable);
+	rUnrecoverable.close();
+	delete[]listUnrecoverable;//libera la memoria de la lista de irrecuperables
+	listUnrecoverable = NULL;
+
+
+
+
 	//LIBERO MEMORIA
-	delete[] listPac;
 	delete[] listCon;
 	delete[] listApp;
 	delete[] listDoc;

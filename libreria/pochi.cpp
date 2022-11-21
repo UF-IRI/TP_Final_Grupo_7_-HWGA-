@@ -128,7 +128,6 @@ void addDoctor(doctor*& listDoc, int& sizeDoc, doctor auxDoc)
 	listDoc = newListDoc;
 	return;
 }
-
 void addSecretary(secretaryList*& listSec, int& sizeSec, secretaryList auxSec)
 {
 	if (listSec == nullptr)
@@ -215,8 +214,9 @@ time_t convertDateToTimeT(string dato)
 
 	return finalDate;
 }
-
 //le doy una string y me la devuelve en time_t
+
+
 string convertDateToString(time_t dato)
 {
 	tm* dateTM;
@@ -227,8 +227,9 @@ string convertDateToString(time_t dato)
 	return dateSTR;
 
 }
-
 //le doy un time_t y me lo devuelve en string
+
+
 int compareDates(time_t fDate, time_t sDate, double& timeBetweenDates) // le paso una fecha 1 y una fecha 2 y me devuelve el nro de la más reciente
 {
 
@@ -245,7 +246,9 @@ int compareDates(time_t fDate, time_t sDate, double& timeBetweenDates) // le pas
 }
 //le doy dos fechas, me devuelve la posición de la más reciente y me llena el double con la diferencia entre las fechas
 
+
 //AUXILIARES
+
 string UP(string word)
 {
 	for (int i = 0; i < strlen(word); i++)
@@ -294,7 +297,6 @@ int keepingUpWithThePacients(pacient paux, int sizeListApp, appointment* listApp
 		category = 3; // ya sé que está internado, no lo voy a llamar
 	else
 	{
-
 
 		if (paux.state == "FALLECIDO")
 			category = 2;//irrecuperable
