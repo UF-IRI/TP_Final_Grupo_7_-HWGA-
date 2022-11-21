@@ -100,6 +100,7 @@ appointment generateRandomApp(appointment lastApp, secretaryList pacient, appoin
 
 //ESCRIBIR ARCHIVOS:
 void writeFileUnrecoverable(fstream rUnrecoverable, int sizeUnrecoverable, pacient* listUnrecoverable);
+void writeFileRecoverable(fstream rRecoverable, int sizeRecoverable, secretaryList* listRecoverable);
 
 
 

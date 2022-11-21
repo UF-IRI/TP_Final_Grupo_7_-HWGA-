@@ -45,7 +45,7 @@ int main()
 	int sizeUnrecoverable = 0;
 	int sizeRecoverable = 0;
 	pacient* listUnrecoverable = new pacient[sizeUnrecoverable];
-	pacient* listRecoverable = new pacient[sizeRecoverable];
+	secretaryList* listRecoverable = new secretaryList[sizeRecoverable]; 
 	writeLists(listPac, sizePac, listUnrecoverable, sizeUnrecoverable, listRecoverable, sizeRecoverable, sizeApp, listApp); //escribo las dos listas de pacientes que me interesan
 	delete[]listPac; //como ya me cree la dos listas de pacientes q me interesan borro lo otro;
 	listPac = NULL;
@@ -61,6 +61,15 @@ int main()
 	delete[]listUnrecoverable;//libera la memoria de la lista de irrecuperables
 	listUnrecoverable = NULL;
 
+	
+	fstream rRecoverable;
+	rRecoverable.open(routeRecoverable, ios::out); //abro el archivo de recuperables para escritura
+	writeFileRecoverable(rRecoverable, sizeRecoverable, listRecoverable); 
+	rRecoverable.close();
+	delete[]listRecoverable; //libera la memoria de la lista de recuperables
+	listRecoverable = NULL;
+
+	//secretaria falta q labures vos
 
 
 
