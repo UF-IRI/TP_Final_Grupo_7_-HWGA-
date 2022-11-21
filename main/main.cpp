@@ -20,8 +20,10 @@ int main()
 	string routeDoc = (BASE_PATH + "../data_files/input/Medicos.csv");
 	string routeApp = (BASE_PATH + "../data_files/input/Consultas.csv");
 
-	//NO ME ENTIENDE LOS ARRAYSSSS --> COMO LOS PASO SI PUSE *& ?????? (pochi). //creo q hay q pasarlos sin nada. Ej: listPac (Loren)
-	//ES NECESARIO ABRIR Y LEER TODOS LOS ARCHIVOS AL PRINCIPIO?? , NO HAY ALGUNO QUE USEMOS DESPUES? (loren).
+	//CONSEGUI QUE ME ABRA Y LEA TODOS LOS ARCHIVOS!!!!! YA PUEDO MORIR TRANQUILO
+	
+	//ME LEE TODO PERFECTO SALVO EL ARCHIVO DE CONTACTOS XQ A ALGUIEN SE LE OCURRIO PONER UNA ADRESS CON ESPACIO :), (sonsulta 7)
+	//habria q solucionarlo con getline pero no sabria bien como
 
 	rPac.open(routePac, ios::in);
 	pacient* listPac = new pacient[sizePac];
@@ -78,5 +80,4 @@ int main()
 	delete[] listCon;
 	delete[] listApp;
 	delete[] listDoc;
-	
 }

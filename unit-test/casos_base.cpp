@@ -1,8 +1,9 @@
 #include "gmock/gmock.h"
 #include "FUNCIONES.h"
 namespace Casos_Base::tests 
+	
 {
-	TEST(convertDateToTimeT, C1)
+	/*TEST(convertDateToTimeT, C1)
 	{
 		tm day;//la inicializo en tm parra pasarla a time_t y es string para verificar que me den lo mismo
 		day.tm_year = 2022;
@@ -36,5 +37,5 @@ namespace Casos_Base::tests
 
 		EXPECT_THAT(compareDates(sameDT, sameDT), 2);
 
-	}
+	}*/
 }

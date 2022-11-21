@@ -13,7 +13,7 @@ void readPac(fstream &rPac, pacient*& listPac, int& sizePac) //puse el fstream &
 
 	while (rPac)
 	{
-		rPac >> aux.namePacient >> dummy >> aux.lastNAmePacient >> dummy >> aux.sex >> dummy >> aux.dateBirth >> dummy >> aux.state >> dummy >> aux.idInsurance;
+		rPac >> aux.dni >> dummy >> aux.namePacient >> dummy >> aux.lastNAmePacient >> dummy >> aux.sex >> dummy >> aux.dateBirth >> dummy >> aux.state >> dummy >> aux.idInsurance;
 		addPacient(listPac, sizePac, aux);
 	}
 	return;
@@ -29,6 +29,7 @@ void readCon(fstream &rCon, contact*& listCon, int& sizeCon)
 	while (rCon)
 	{
 		rCon >> aux.dniContact >> dummy >> aux.numberTelephone >> dummy >> aux.numberPhone >> dummy >> aux.adress >> dummy >> aux.mail;
+		//hay q modificar esto xq el contacto 7 tiene unaadress con espacio y se corta ahi el while cuando deberia leer los 101
 		addContact(listCon, sizeCon, aux);
 	}
 	return;
@@ -103,7 +104,7 @@ void addContact(contact*& listCon, int& sizeCon, contact auxCon)
 {
 	if (listCon == nullptr)
 		return;
-	contact * newListCon = new contact[sizeCon];
+	contact * newListCon = new contact[sizeCon + 1];
 	int i;
 	for (i = 0; i < sizeCon; i++)
 		newListCon[i] = listCon[i];
@@ -162,7 +163,7 @@ void addString(string*& list, int& size, string auxStr)
 	list = newList;
 	return;
 }
-
+/*
 //MANIPULAR FECHAS
 time_t convertDateToTimeT(string dato)
 {
@@ -446,7 +447,7 @@ void generateRandomApp(appointment lastApp, secretaryList pacient, appointment*&
 
 }
 //le paso el paciente, la lista de doctores y la lista de nuevas consultas que voy armando y me agrega una nueva para ese paciente
-
+*/
 
 
 
