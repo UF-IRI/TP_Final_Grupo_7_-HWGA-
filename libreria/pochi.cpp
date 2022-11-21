@@ -74,7 +74,7 @@ void addPacient(pacient*& listP, int& sizeP, pacient auxP)
 		return;
 	pacient* newListP = new pacient[sizeP + 1];
 	int i;
-	for (i = 0; 1 < sizeP; i++)
+	for (i = 0; i < sizeP; i++)
 		newListP[i] = listP[i];
 	newListP[i] = auxP;
 
@@ -446,7 +446,6 @@ void generateRandomApp(appointment lastApp, secretaryList pacient, appointment*&
 
 }
 //le paso el paciente, la lista de doctores y la lista de nuevas consultas que voy armando y me agrega una nueva para ese paciente
-
 
 
 

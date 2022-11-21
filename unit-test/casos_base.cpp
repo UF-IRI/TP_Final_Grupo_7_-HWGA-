@@ -37,5 +37,4 @@ namespace Casos_Base::tests
 		EXPECT_THAT(compareDates(sameDT, sameDT), 2);
 
 	}
-	
 }

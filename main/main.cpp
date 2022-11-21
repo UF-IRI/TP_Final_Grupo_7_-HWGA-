@@ -1,5 +1,5 @@
 #include "FUNCIONES.h"
-#include "iri.cpp"
+#include "iri.cpp" //incluyo iri cpp xq sino no me toma el BASE_PATH, no tengo idea xq (loren)
 
 using namespace std;
 
@@ -20,7 +20,6 @@ int main()
 	string routeDoc = (BASE_PATH + "../data_files/input/Medicos.csv");
 	string routeApp = (BASE_PATH + "../data_files/input/Consultas.csv");
 
-	//NO ANDANNNNNN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	//NO ME ENTIENDE LOS ARRAYSSSS --> COMO LOS PASO SI PUSE *& ?????? (pochi). //creo q hay q pasarlos sin nada. Ej: listPac (Loren)
 	//ES NECESARIO ABRIR Y LEER TODOS LOS ARCHIVOS AL PRINCIPIO?? , NO HAY ALGUNO QUE USEMOS DESPUES? (loren).
 
@@ -79,5 +78,5 @@ int main()
 	delete[] listCon;
 	delete[] listApp;
 	delete[] listDoc;
-
+	
 }
