@@ -2,7 +2,8 @@
 #include"FUNCIONES.h"
 
 //READ
-void readPac(fstream rPac, pacient*& listPac, int& sizePac)
+void readPac(fstream &rPac, pacient*& listPac, int& sizePac) //puse el fstream & xq en google me lo decia asi y ahora ya no me toma
+															 //mas error, perdon por tocarte el codigo pochi :) (loren)
 {
 	if (!(rPac.is_open()) || listPac == nullptr)
 		return;
@@ -13,11 +14,11 @@ void readPac(fstream rPac, pacient*& listPac, int& sizePac)
 	while (rPac)
 	{
 		rPac >> aux.namePacient >> dummy >> aux.lastNAmePacient >> dummy >> aux.sex >> dummy >> aux.dateBirth >> dummy >> aux.state >> dummy >> aux.idInsurance;
-		addPacient(listPac, &sizePac, aux);
+		addPacient(listPac, sizePac, aux);
 	}
 	return;
 }
-void readCon(fstream rCon, contact*& listCon, int& sizeCon)
+void readCon(fstream &rCon, contact*& listCon, int& sizeCon)
 {
 	if (!(rCon.is_open()) || listCon == nullptr)
 		return;
@@ -33,7 +34,7 @@ void readCon(fstream rCon, contact*& listCon, int& sizeCon)
 	return;
 
 }
-void readApp(fstream rApp, appointment*& listApp, int& sizeApp)
+void readApp(fstream &rApp, appointment*& listApp, int& sizeApp)
 {
 	if (!(rApp.is_open()) || listApp == nullptr)
 		return;
@@ -48,7 +49,7 @@ void readApp(fstream rApp, appointment*& listApp, int& sizeApp)
 	}
 	return;
 }
-void readDoc(fstream rDoc, doctor*& listDoc, int& sizeDoc)
+void readDoc(fstream &rDoc, doctor*& listDoc, int& sizeDoc)
 {
 	if (!(rDoc.is_open()) || listDoc == nullptr)
 		return;
@@ -100,13 +101,13 @@ void addAppointment(appointment*& listApp, int& sizeApp, appointment auxApp)
 }
 void addContact(contact*& listCon, int& sizeCon, contact auxCon)
 {
-	if (listCo == nullptr)
+	if (listCon == nullptr)
 		return;
-	contact newListCon = new contact[sizeCon];
+	contact * newListCon = new contact[sizeCon];
 	int i;
 	for (i = 0; i < sizeCon; i++)
 		newListCon[i] = listCon[i];
-	newListCon = auxCon;
+	newListCon[i] = auxCon;
 
 	sizeCon++;
 	delete[] listCon;
@@ -251,7 +252,7 @@ int compareDates(time_t fDate, time_t sDate, double& timeBetweenDates) // le pas
 
 string UP(string word)
 {
-	for (int i = 0; i < strlen(word); i++)
+	for (int i = 0; i < word.length(); i++)
 	{
 		word[i] = toupper(word[i]);
 	}
@@ -306,7 +307,7 @@ int keepingUpWithThePacients(pacient paux, int sizeListApp, appointment* listApp
 			appointment dummyApp = lastApp(paux.dni, sizeListApp, listApp); //dummy porque solo me importan la fecha y el booleano
 			time_t lastAppDate = convertToTimeT(dummyApp.dateAppointment);
 			double timeBD;
-			int LastD = compareDates(current, lastAppDate, &timeBD);
+			int lastD = compareDates(current, lastAppDate, &timeBD);
 			switch (lastD)
 			{
 			case -1:
@@ -314,7 +315,7 @@ int keepingUpWithThePacients(pacient paux, int sizeListApp, appointment* listApp
 			case 1: //la fecha más nueva es hoy --> ya pasó
 			{
 
-				if (timeBD < 10ANIOS)//tengo que ver si fue hace más de 10 años
+				if (timeBD < tenYears)//tengo que ver si fue hace más de 10 años
 				{
 					if (dummyApp.asistance) // hace 10 años y vino --> OK --> no me importa
 						category = 3;
@@ -351,17 +352,17 @@ appointment lastApp(unsigned int dniAux, int sizeListApp, appointment* listApp)
 			{
 				if (!found)//primera vez que encuentro el paciente
 				{
-					lastAppointment = *listApp[i];
+					lastAppointment = listApp[i];
 					found = true;
 				}
 				else
 				{
 				
-					int lD = compareDates(lastAppointment.dateAppointment, listApp[i]->dateAppointment)// nombre=lastdate//va a ser un 1 si la que ya tenía guardada es más reciente 
-						if (lD == -1)
-							//!!!!!!!!!!!!!!!!!!!!!NIO SE QUE PONER ACA Y POR ALGUNA RAZON NO ME ENTIENDE EL COMPARE DATES!!!!HUBO UN ERROR, DECIDIR QUE DEVUELVE O SI DIRECTAMENTE BREAKEO Y ME VOY DE LA FUNCION CON EL DATO DE LA ÚLTIMA FECHA QUE ENCONTRE ANTES DE PONER EN TRUE EL BOOLEANO !!!!!!!!!!!!!!!!!!!!
-						else if (ld == 2) //la que estoy leyendo ahora es más reciente --> las cambio
-							lastAppointment = *listApp[i];
+					int lD = compareDates(lastAppointment.dateAppointment, listApp[i]->dateAppointment);// nombre=lastdate//va a ser un 1 si la que ya tenía guardada es más reciente 
+					if (lD == -1)
+						int x;//!!!!!!!!!!!!!!!!!!!!!NIO SE QUE PONER ACA Y POR ALGUNA RAZON NO ME ENTIENDE EL COMPARE DATES!!!!HUBO UN ERROR, DECIDIR QUE DEVUELVE O SI DIRECTAMENTE BREAKEO Y ME VOY DE LA FUNCION CON EL DATO DE LA ÚLTIMA FECHA QUE ENCONTRE ANTES DE PONER EN TRUE EL BOOLEANO !!!!!!!!!!!!!!!!!!!!
+					else if (lD == 2) //la que estoy leyendo ahora es más reciente --> las cambio
+						lastAppointment = listApp[i];
 				}
 			}
 
@@ -373,7 +374,7 @@ appointment lastApp(unsigned int dniAux, int sizeListApp, appointment* listApp)
 //le doy un dni y me devuelve la ultima consulta del paciente
 
 
-void writeLists(pacient* totalList, int totalSize, pacient*& listUnrecoverable, int& sizeUnrecoverable, pacient*& listRecoverable, int& sizeRecoverable, int sizeApp, appointment* listApp)
+void writeLists(pacient* totalList, int totalSize, pacient*& listUnrecoverable, int& sizeUnrecoverable, pacient*& listRecoverable, int& sizeRecoverable, int sizeApp, appointment* listApp) //por que la lista de recuperables es de tipo paciente y no secretary list? (loren)
 {
 	if (totalList == nullptr || listUnrecoverable == nullptr || listRecoverable == nullptr || listApp == nullptr)
 		return;
@@ -412,8 +413,7 @@ void generateRandomApp(appointment lastApp, secretaryList pacient, appointment*&
 	//HOY QUE LO TENGO QUE GENERAR CON TIME_T PARA QUE SE ME VAYA ACTUALIZANDO Y LO TENGO QUE PASAR A STRING PORQUE A LUCAS NO LE GUSTABA QUE TUVIESE UNA LINEA MÁS EN EL CODIGO ENTONCES TENGO QUE CREARME 3 FUNCIONES NUEVAS :))))))))
 	time_t current = time(NULL); 
 	string today = convertDateToString(current);
-
-	srand time(NULL);
+	srand(time(NULL));
 	bool again;
 
 	do

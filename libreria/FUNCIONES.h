@@ -59,14 +59,14 @@ typedef struct {
 }secretaryList;
 
 //CONSTANTES:
-#define 10ANIOS =315576000 //10 años en segundos
-#define currentYear=2022
+#define tenYears 315576000 //10 años en segundos
+#define currentYear 2022
 
 //READ:
-void readPac(fstream rPac, pacient*&listPac, int&sizePac);
-void readCon(fstream rCon, contact*& listCon, int& sizeCon);
-void readApp(fstream rApp, appointment*& listApp, int& sizeApp);
-void readDoc(fstream rDoc, doctor*& listDoc, int& sizeDoc);
+void readPac(fstream &rPac, pacient*&listPac, int&sizePac);
+void readCon(fstream &rCon, contact*& listCon, int& sizeCon);
+void readApp(fstream &rApp, appointment*& listApp, int& sizeApp);
+void readDoc(fstream &rDoc, doctor*& listDoc, int& sizeDoc);
 
 //RESIZE:
 void addPacient(pacient*& listP, int& sizeP, pacient auxP);
@@ -99,8 +99,8 @@ appointment generateRandomApp(appointment lastApp, secretaryList pacient, appoin
 
 
 //ESCRIBIR ARCHIVOS:
-void writeFileUnrecoverable(fstream rUnrecoverable, int sizeUnrecoverable, pacient* listUnrecoverable);
-void writeFileRecoverable(fstream rRecoverable, int sizeRecoverable, secretaryList* listRecoverable);
+void writeFileUnrecoverable(fstream &rUnrecoverable, int sizeUnrecoverable, pacient* listUnrecoverable);
+void writeFileRecoverable(fstream &rRecoverable, int sizeRecoverable, secretaryList* listRecoverable);
 
 
 
@@ -110,7 +110,7 @@ secretaryList convertToSecretary(pacient paux, appointment* listApp, int sizeApp
 /*
 * PARA HACER:
 * 
-* 1) SI HAGO PASAJE POR REFERENCIA VERIFICO NULLPRT?
+* 1) SI HAGO PASAJE POR REFERENCIA VERIFICO NULLPRT? //si (loren)
 * 2) CONVERTDATETOTIMET NO SÉ SI HAY QUE CAMBIARLA
 * 3) NO SÉ QUÉ ME DICE LA DE COMPAREDATES
 * 4) HACE FALTA VERIFICAR NEGATIVOS, ETC EN LAS FECHAS???? PORFAS NO

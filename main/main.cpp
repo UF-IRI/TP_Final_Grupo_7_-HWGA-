@@ -1,4 +1,6 @@
 #include "FUNCIONES.h"
+#include "iri.cpp"
+
 using namespace std;
 
 int main()
@@ -11,12 +13,12 @@ int main()
 	int sizePac = 0;
 	int sizeCon = 0;
 	int sizeDoc = 0;
-	int sizeApp=0;
+	int sizeApp = 0;
 
-	string routePac = (BASE PATH + "../data_files/input/Pacientes.csv"); //no tengo idea si esta bien pero queda lindo
-	string routeCon = (BASE PATH + "../data_files/input/Contactos.csv");
-	string routeDoc = (BASE PATH + "../data_files/input/Medicos.csv");
-	string routeApp = (BASE PATH + "../data_files/input/Consultas.csv");
+	string routePac = (BASE_PATH + "../data_files/input/Pacientes.csv"); //no tengo idea si esta bien pero queda lindo
+	string routeCon = (BASE_PATH + "../data_files/input/Contactos.csv");
+	string routeDoc = (BASE_PATH + "../data_files/input/Medicos.csv");
+	string routeApp = (BASE_PATH + "../data_files/input/Consultas.csv");
 
 	//NO ANDANNNNNN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	//NO ME ENTIENDE LOS ARRAYSSSS --> COMO LOS PASO SI PUSE *& ?????? (pochi). //creo q hay q pasarlos sin nada. Ej: listPac (Loren)
@@ -24,22 +26,22 @@ int main()
 
 	rPac.open(routePac, ios::in);
 	pacient* listPac = new pacient[sizePac];
-	readPac(rPac, listPac, &sizePac); //me lleno la lista de pacientes
+	readPac(rPac, listPac, sizePac); //me lleno la lista de pacientes
 	rPac.close();
 	
 	rCon.open(routeCon, ios::in);
 	contact* listCon = new contact[sizeCon]; //me lleno la lista de contactos
-	readCon(rCon, listCon, &sizeCon);
+	readCon(rCon, listCon, sizeCon);
 	rCon.close();
 
 	rApp.open(routeApp, ios::in);
 	appointment* listApp = new appointment[sizeApp]; //me lleno la lista de consultas
-	readApp(rApp, listApp, &sizeApp);
+	readApp(rApp, listApp, sizeApp);
 	rApp.close();
 
 	rDoc.open(routeDoc, ios::in);
 	doctor* listDoc = new doctor[sizeDoc]; //me lleno la lista de medicos
-	readDoc(rDoc, listDoc, &sizeDoc);
+	readDoc(rDoc, listDoc, sizeDoc);
 	rDoc.close();
 
 	int sizeUnrecoverable = 0;
@@ -51,12 +53,12 @@ int main()
 	listPac = NULL;
 
 
-	string routeRecoverable = (BASE PATH + "../data_files/output/Recoverable.csv");
-	string routeUnrecoverable = (BASE PATH + "../data_files/output/Unrecoverable.csv");
+	string routeRecoverable = (BASE_PATH + "../data_files/output/Recoverable.csv");
+	string routeUnrecoverable = (BASE_PATH + "../data_files/output/Unrecoverable.csv");
 
 	fstream rUnrecoverable;
 	rUnrecoverable.open(routeUnrecoverable, ios::out);//abro el archivo de irrecuperables para escritura
-	writeFileUnrecoverable(rUnrecoverable, sizeUnrecoverable, listUnrecoverable);
+	writeFileUnrecoverable(rUnrecoverable, sizeUnrecoverable, listUnrecoverable); //escribo el archivo irrecuperables a partir de la lista irrecuperables
 	rUnrecoverable.close();
 	delete[]listUnrecoverable;//libera la memoria de la lista de irrecuperables
 	listUnrecoverable = NULL;
@@ -64,7 +66,7 @@ int main()
 	
 	fstream rRecoverable;
 	rRecoverable.open(routeRecoverable, ios::out); //abro el archivo de recuperables para escritura
-	writeFileRecoverable(rRecoverable, sizeRecoverable, listRecoverable); 
+	writeFileRecoverable(rRecoverable, sizeRecoverable, listRecoverable); //escribo el archivo recuperables a partir de la lista recuperables
 	rRecoverable.close();
 	delete[]listRecoverable; //libera la memoria de la lista de recuperables
 	listRecoverable = NULL;

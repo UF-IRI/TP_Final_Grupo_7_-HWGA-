@@ -1,6 +1,6 @@
 #include "FUNCIONES.h"
 
-void writeFileUnrecoverable(fstream rUnrecoverable, int sizeUnrecoverable, pacient* listUnrecoverable)
+void writeFileUnrecoverable(fstream &rUnrecoverable, int sizeUnrecoverable, pacient* listUnrecoverable)
 {
 	if (listUnrecoverable == nullptr || !(rUnrecoverable.is_open()))
 		return;
@@ -16,7 +16,7 @@ void writeFileUnrecoverable(fstream rUnrecoverable, int sizeUnrecoverable, pacie
 }
 
 
-void writeFileRecoverable(fstream rRecoverable, int sizeRecoverable, secretaryList* listRecoverable)
+void writeFileRecoverable(fstream &rRecoverable, int sizeRecoverable, secretaryList* listRecoverable)
 {
 	if (listRecoverable == nullptr || !(rRecoverable.is_open()))
 		return;
@@ -25,7 +25,7 @@ void writeFileRecoverable(fstream rRecoverable, int sizeRecoverable, secretaryLi
 	int i = 0;
 	while (i < sizeRecoverable)
 	{
-		rRecoverable << listRecoverable[i].namePacientSecl << " , " << listRecoverable[i].lastNamePacientSecL << " , "
+		rRecoverable << listRecoverable[i].namePacientSecL << " , " << listRecoverable[i].lastNamePacientSecL << " , "
 			<< listRecoverable[i].dniSecL << " , " << listRecoverable[i].medicalInsuranceSecL << " , " << listRecoverable[i].idDoctorSecL
 			<< listRecoverable[i].cellphoneNumberSecL << " , " << "." << endl;
 		i++;
