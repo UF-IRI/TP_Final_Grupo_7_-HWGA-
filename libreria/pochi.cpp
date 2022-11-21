@@ -28,8 +28,10 @@ void readCon(fstream &rCon, contact*& listCon, int& sizeCon)
 
 	while (rCon)
 	{
-		rCon >> aux.dniContact >> dummy >> aux.numberTelephone >> dummy >> aux.numberPhone >> dummy >> aux.adress >> dummy >> aux.mail;
-		//hay q modificar esto xq el contacto 7 tiene unaadress con espacio y se corta ahi el while cuando deberia leer los 101
+		rCon >> aux.dniContact >> dummy >> aux.numberTelephone >> dummy >> aux.numberPhone >> dummy;
+		getline(rCon, aux.adress, ','); //hice esto xq habia un paciente hermoso q tenia una adress separada con espacio entonces me leia hasta ahi
+									//perdon pochi por tocarte el codigo pero parece q funciona :)
+		rCon >> aux.mail;
 		addContact(listCon, sizeCon, aux);
 	}
 	return;

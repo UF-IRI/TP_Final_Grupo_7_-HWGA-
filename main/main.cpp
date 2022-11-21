@@ -20,11 +20,9 @@ int main()
 	string routeDoc = (BASE_PATH + "../data_files/input/Medicos.csv");
 	string routeApp = (BASE_PATH + "../data_files/input/Consultas.csv");
 
-	//CONSEGUI QUE ME ABRA Y LEA TODOS LOS ARCHIVOS!!!!! YA PUEDO MORIR TRANQUILO
+	//CONSEGUI QUE ME ABRA Y LEA TODOS LOS ARCHIVOS!!!!! YA PUEDO MORIR TRANQUILO :)
 	
-	//ME LEE TODO PERFECTO SALVO EL ARCHIVO DE CONTACTOS XQ A ALGUIEN SE LE OCURRIO PONER UNA ADRESS CON ESPACIO :), (sonsulta 7)
-	//habria q solucionarlo con getline pero no sabria bien como
-
+	
 	rPac.open(routePac, ios::in);
 	pacient* listPac = new pacient[sizePac];
 	readPac(rPac, listPac, sizePac); //me lleno la lista de pacientes
@@ -44,7 +42,7 @@ int main()
 	doctor* listDoc = new doctor[sizeDoc]; //me lleno la lista de medicos
 	readDoc(rDoc, listDoc, sizeDoc);
 	rDoc.close();
-
+	
 	int sizeUnrecoverable = 0;
 	int sizeRecoverable = 0;
 	pacient* listUnrecoverable = new pacient[sizeUnrecoverable];
