@@ -15,13 +15,12 @@ int main()
 	int sizeDoc = 0;
 	int sizeApp = 0;
 
-	string routePac = (BASE_PATH + "../data_files/input/Pacientes.csv"); //no tengo idea si esta bien pero queda lindo
+	string routePac = (BASE_PATH + "../data_files/input/Pacientes.csv"); //queda lindo y funciona 10 puntos
 	string routeCon = (BASE_PATH + "../data_files/input/Contactos.csv");
 	string routeDoc = (BASE_PATH + "../data_files/input/Medicos.csv");
 	string routeApp = (BASE_PATH + "../data_files/input/Consultas.csv");
 
 	//CONSEGUI QUE ME ABRA Y LEA TODOS LOS ARCHIVOS!!!!! YA PUEDO MORIR TRANQUILO :)
-	
 	
 	rPac.open(routePac, ios::in);
 	pacient* listPac = new pacient[sizePac];
@@ -43,6 +42,9 @@ int main()
 	readDoc(rDoc, listDoc, sizeDoc);
 	rDoc.close();
 	
+	//HASTA ACA FUNCIONA TODO EN TEORÍA :):)
+
+
 	int sizeUnrecoverable = 0;
 	int sizeRecoverable = 0;
 	pacient* listUnrecoverable = new pacient[sizeUnrecoverable];
