@@ -165,7 +165,7 @@ void addString(string*& list, int& size, string auxStr)
 	list = newList;
 	return;
 }
-/*
+
 //MANIPULAR FECHAS
 time_t convertDateToTimeT(string dato)
 {
@@ -449,7 +449,6 @@ void generateRandomApp(appointment lastApp, secretaryList pacient, appointment*&
 
 }
 //le paso el paciente, la lista de doctores y la lista de nuevas consultas que voy armando y me agrega una nueva para ese paciente
-*/
 
 
 
