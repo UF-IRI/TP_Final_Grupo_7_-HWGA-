@@ -104,8 +104,9 @@ void writeFileRecoverable(fstream &rRecoverable, int sizeRecoverable, secretaryL
 
 
 
-//FALTAN:
+//SECRETARÍA
 secretaryList convertToSecretary(pacient paux, appointment* listApp, int sizeApp, contact* listCon); //le paso un paciente y me lo convierte en el struct secretaría
+void pacientsUpdate()
 
 /*
 * PARA HACER:

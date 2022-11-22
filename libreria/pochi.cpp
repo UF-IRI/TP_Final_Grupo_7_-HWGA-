@@ -376,7 +376,7 @@ appointment lastApp(unsigned int dniAux, int sizeListApp, appointment* listApp)
 }
 //le doy un dni y me devuelve la ultima consulta del paciente
 
-
+//no te toque el codigo pochi pero necesito que la lista de recuperables sea del tipo secretaria, ya hice la funcion covert to secretary :) (agos)
 void writeLists(pacient* totalList, int totalSize, pacient*& listUnrecoverable, int& sizeUnrecoverable, pacient*& listRecoverable, int& sizeRecoverable, int sizeApp, appointment* listApp) //por que la lista de recuperables es de tipo paciente y no secretary list? (loren)
 {
 	if (totalList == nullptr || listUnrecoverable == nullptr || listRecoverable == nullptr || listApp == nullptr)
