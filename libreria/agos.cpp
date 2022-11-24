@@ -2,8 +2,17 @@
 
 secretaryList convertToSecretary(pacient paux, appointment* listApp, int sizeApp, contact* listCon, int sizeCon)
 {
+	secretaryList error;
+	error.answerSecL = '0';
+	error.cellphoneNumberSecL = '0';
+	error.dniSecL = 0;
+	error.idDoctorSecL = '0';
+	error.lastNamePacientSecL = '0';
+	error.medicalInsuranceSecL = '0';
+	error.namePacientSecL='0';
+
 	if (listApp == nullptr || listCon == nullptr)
-		return;
+		return error;
 
 	secretaryList newPacient;
 	newPacient.namePacientSecL = paux.namePacient;
@@ -89,7 +98,7 @@ void pacientsUpdate(secretaryList*& recoverableList, int sizeRec, string*Insuran
 						recoverableList[i].answerSecL = "NuevaConsulta";
 
 						changeMI = rand() % 2;//0:no quiere cambiar su obra social, 1:la quiere cambiar
-						if (change == 1)
+						if (changeMI == 1)
 						{
 							string repeated = recoverableList[i].medicalInsuranceSecL;
 							do
@@ -97,7 +106,7 @@ void pacientsUpdate(secretaryList*& recoverableList, int sizeRec, string*Insuran
 								newInsurance = rand() % sizeIL; 
 								recoverableList[i].medicalInsuranceSecL = InsuranceList[newInsurance];
 
-							} while (repeated == recoverableList[i].medicalInsurance); //para que no vuelva a ser la misma de antes
+							} while (repeated == recoverableList[i].medicalInsuranceSecL); //para que no vuelva a ser la misma de antes
 						} 
 						//no tiene sentido agregar un else porque quedaria igual su obra social
 					}
