@@ -2,7 +2,7 @@
 
 secretaryList convertToSecretary(pacient paux, appointment* listApp, int sizeApp, contact* listCon, int sizeCon)
 {
-	secretaryList error;
+	secretaryList error; //struct del tipo secretaria lleno con 0s que devuelvo en caso de error
 	error.answerSecL = '0';
 	error.cellphoneNumberSecL = '0';
 	error.dniSecL = 0;
@@ -14,7 +14,7 @@ secretaryList convertToSecretary(pacient paux, appointment* listApp, int sizeApp
 	if (listApp == nullptr || listCon == nullptr)
 		return error;
 
-	secretaryList newPacient;
+	secretaryList newPacient; //lleno los campos del struct con los datos que ya conozco
 	newPacient.namePacientSecL = paux.namePacient;
 	newPacient.lastNamePacientSecL = paux.lastNAmePacient;
 	newPacient.dniSecL = paux.dni;
@@ -22,7 +22,7 @@ secretaryList convertToSecretary(pacient paux, appointment* listApp, int sizeApp
 
 	int i;
 
-	for (i = 0; i < sizeCon; i++)
+	for (i = 0; i < sizeCon; i++) //recorro la lista de contactos hasta encontrarlo y me guardo su celular
 	{
 		if (listCon[i].dniContact == newPacient.dniSecL)
 		{
@@ -42,7 +42,7 @@ secretaryList convertToSecretary(pacient paux, appointment* listApp, int sizeApp
 
 }
 
-void appendAppointment(fstream& appAppointment, appointment* newAppointments, int howMany)
+void appendAppointment(fstream& appAppointment, appointment* newAppointments, int howMany) //para agregar las nuevas consultas programadas en el archivo de consultas
 {
 	if (newAppointments == nullptr || !(appAppointment.is_open()))
 		return;
@@ -55,7 +55,7 @@ void appendAppointment(fstream& appAppointment, appointment* newAppointments, in
 	return;
 }
 
-void pacientsUpdate(secretaryList*& recoverableList, int sizeRec, string*InsuranceList, int sizeIL, appointment*&newApp, int &sizeNewApp)
+void pacientsUpdate(secretaryList*& recoverableList, int sizeRec, string*InsuranceList, int sizeIL, appointment*&newApp, int &sizeNewApp) //funcion de actualizacion de datos
 {
 	if (recoverableList == nullptr|| InsuranceList==nullptr|| newApp==nullptr)
 		return;
