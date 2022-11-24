@@ -347,6 +347,7 @@ string generateRandomAppDate(appointment*& previousApps, int sizePrevApps)
 		time_t today = time(NULL);
 		srand (time(NULL));
 		bool again=false;
+		double dummy;
 
 		do
 		{
@@ -362,9 +363,24 @@ string generateRandomAppDate(appointment*& previousApps, int sizePrevApps)
 				}
 				else
 					day = rand() % 31 + 1;
-			string dateNextApp = to_string(day) + '/' + to_string(month) + '/' + to_string(year);//la paso a string 
-			time_t newD=
-
+			newDate = to_string(day) + '/' + to_string(month) + '/' + to_string(year);//la paso a string 
+			time_t newD = convertToTimeT(dateNextApp);
+			int lDate = compareDates(today, newD, &dummy); 
+			if (lDate !=2)
+			{
+				again = true;//me devuelve 1 si la más reciente es hoy --> me hizo una nueva para el pasado el bobon || me devuelve un -1 si hubo error
+			}
+			else
+			{
+				int counter = 0;
+				for (int k = 0; k < sizePrevApps; k++)
+				{
+					if (previousApps[i].dateAppointment == newDate)
+						counter++;
+				}
+				again = (counter > 10) ? true : false; //ponele que en un dia puedo atender hasta a 10 pacientes porque mi hospital tiene 15 cm cuadrados y cada consulta tarda 86789 horas
+			}
+			
 		} while (again);
 
 	}
@@ -408,82 +424,7 @@ appointment lastApp(unsigned int dniAux, int sizeListApp, appointment* listApp)
 //le doy un dni y me devuelve la ultima consulta del paciente
 
 //no te toque el codigo pochi pero necesito que la lista de recuperables sea del tipo secretaria, ya hice la funcion covert to secretary :) (agos)
-void writeLists(pacient* totalList, int totalSize, pacient*& listUnrecoverable, int& sizeUnrecoverable, pacient*& listRecoverable, int& sizeRecoverable, int sizeApp, appointment* listApp) //por que la lista de recuperables es de tipo paciente y no secretary list? (loren)
-{
-	if (totalList == nullptr || listUnrecoverable == nullptr || listRecoverable == nullptr || listApp == nullptr)
-		return;
 
-	int i;
-	int cat;
-
-	for (i = 0; i < totalSize; i++)
-	{
-		cat = keepingUpWithThePacients(totalList[i], sizeApp, listApp);
-		switch (cat)
-		{
-		case 1://recuperable
-		{
-			//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			break;
-		}
-		case 2: //irrecuperable
-		{
-			addPacient(listUnrecoverable, sizeUnrecoverable, totalList[i]); //lo agrego a la lista de irrecuperables
-			break;
-		}
-		//no pongo deffault porque que me importa 
-		}
-	}
-
-	return;
-}
-//le paso una lista con todos los pacientes y me devuelve dos listas separadas de recuperables/no recuperables
-
-//GENERAR CON RANDOM
-void generateRandomApp(appointment lastApp, secretaryList pacient, appointment*& previousApps, doctor* docList, int sizeDoc)
-{
-	if (previousApps == nullptr || docList == nullptr)
-		return;
-	//HOY QUE LO TENGO QUE GENERAR CON TIME_T PARA QUE SE ME VAYA ACTUALIZANDO Y LO TENGO QUE PASAR A STRING PORQUE A LUCAS NO LE GUSTABA QUE TUVIESE UNA LINEA MÁS EN EL CODIGO ENTONCES TENGO QUE CREARME 3 FUNCIONES NUEVAS :))))))))
-	time_t current = time(NULL); 
-	string today = convertDateToString(current);
-	srand(time(NULL));
-	bool again;
-
-	do
-	{
-	
-		int year = rand() % 3 + currentYear; //si es un 0 --> este año; si es 1 --> el año que viene; si es 2 --> en dos años // asumo que no se puede programar una app para dentro de 25 años porque ya se murieron todos, abrazo
-		int month = rand() % 12 + 1;//me da un nro de 0 a 11 y lo cambio para que sea de 1 a 12 
-		int day;
-		if (month == 2)
-			day = rand() % 28 + 1;//no verifico que sea un año bisiesto, el 29 es dia de ñoquis y mis doctores no atienden
-		else 
-			if (month == 4 || month == 6 || month == 9 || month == 11)
-			{
-				day = rand() % 30 + 1;
-			}
-			else
-				day = rand() % 31 + 1;
-		//me generé la fecha random
-		string dateNextApp = to_string(day) + '/' + to_string(month) + '/' + to_string(year);//la paso a string 
-		double timeBet;
-		int withToday = compareDates(today, dateNextApp, &timeBet);//NO SE POR QUE NO ME LO TOMA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		if (withToday == 1) //ME ASEGURO QUE ESTE EN EL FUTURO
-			again = true;
-
-	} while (again); //no le pongo un límite de consultas por día porque asumo que mi hospital es mágico y tiene 210998765 horas al dia para atender gente porque les re imprta la salud del pueblo :)
-
-	doctor aux;
-	for (int i = 0; i < sizeDoc; i++)
-	{
-		if()
-	}
-
-
-
-}
-//le paso el paciente, la lista de doctores y la lista de nuevas consultas que voy armando y me agrega una nueva para ese paciente
 
 
 
