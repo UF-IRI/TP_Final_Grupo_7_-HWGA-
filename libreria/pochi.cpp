@@ -295,7 +295,6 @@ int keepingUpWithThePacients(pacient paux, int sizeListApp, appointment* listApp
 	if (listApp == nullptr)
 		return -1; //VERIFICO ERROR <3
 	int category = -1; //INICIALIZO EN -1 ASÍ LA DEVUELVO AL FINAL
-	bool went;
 	paux.state = UP(paux.state);
 	if (paux.state == "INTERNADO")
 		category = 3; // ya sé que está internado, no lo voy a llamar
@@ -320,7 +319,7 @@ int keepingUpWithThePacients(pacient paux, int sizeListApp, appointment* listApp
 
 				if (timeBD < tenYears)//tengo que ver si fue hace más de 10 años
 				{
-					if (dummyApp.asistance) // hace 10 años y vino --> OK --> no me importa
+					if (dummyApp.asistance==1) // hace 10 años y vino --> OK --> no me importa
 						category = 3;
 					else //hace menos de 10 años y no vino --> lo tengo que llamar llamar
 						category = 1;
@@ -387,7 +386,7 @@ appointment lastApp(unsigned int dniAux, int sizeListApp, appointment* listApp)
 
 		for (i = 0; i < sizeListApp; i++)
 		{
-			if (listApp->dniPacient == dniAux) // si recorre todo y no lo encuentra entonces no me guarda nada y el dni sigue siendo 0
+			if (listApp[i].dniPacient == dniAux) // si recorre todo y no lo encuentra entonces no me guarda nada y el dni sigue siendo 0
 			{
 				if (!found)//primera vez que encuentro el paciente
 				{
