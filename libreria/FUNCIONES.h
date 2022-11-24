@@ -84,7 +84,7 @@ string convertDateToString(time_t dato);
 //CATEGORIZAR:
 int keepingUpWithThePacients(pacient paux, int sizeListApp, appointment* listApp);//categoriza el paciente
 appointment lastApp(unsigned int dniAux, int sizeListApp, appointment* listApp);//le paso un dni y me devuelve la ultima consulta de ese paciente
-void writeLists(pacient* totalList, int totalSize, pacient*& listUnrecoverable, int& sizeUnrecoverable, pacient*& listRecoverable, int& sizeRecoverable, int sizeApp, appointment* listApp); //le paso la lista general y me arma las dos listas
+void writeLists(pacient* totalList, int totalSize, pacient*& listUnrecoverable, int& sizeUnrecoverable, secretaryList*& listRecoverable, int& sizeRecoverable, int sizeApp, appointment* listApp, contact* listCon, int sizeCon); //le paso la lista general y me arma las dos listas
 
 //GENERAR CON RANDOM:
 string generateRandomAppDate(appointment*& previousApps, int sizePrevApps);
@@ -95,9 +95,6 @@ string UP(string word);//pasa a mayuscula una palabra
 void generateInsuranceList(pacient* totalList, int sizeTotal, string*& listIn, int& sizeIn);
 
 
-
-
-
 //ESCRIBIR ARCHIVOS:
 void writeFileUnrecoverable(fstream &rUnrecoverable, int sizeUnrecoverable, pacient* listUnrecoverable);
 void writeFileRecoverable(fstream &rRecoverable, int sizeRecoverable, secretaryList* listRecoverable);
@@ -106,7 +103,7 @@ void writeFileRecoverable(fstream &rRecoverable, int sizeRecoverable, secretaryL
 
 //SECRETARÍA
 secretaryList convertToSecretary(pacient paux, appointment* listApp, int sizeApp, contact* listCon, int sizeCon); //le paso un paciente y me lo convierte en el struct secretaría
-void pacientsUpdate(secretaryList*& recoverableList, int sizeRec, pacient* totalList, int sizeTotal, appointment*& newApp, int sizeNewApp);
+void pacientsUpdate(secretaryList*& recoverableList, int sizeRec, string* InsuranceList, int sizeIL, appointment*& newApp, int sizeNewApp);
 void appendAppointment(fstream &appAppointment, appointment* newAppointments, int howMany);
 
 /*
@@ -127,10 +124,6 @@ void appendAppointment(fstream &appAppointment, appointment* newAppointments, in
 
 /*DUDAS: (agos)
 
-POCHI MIRA LOS CAMBIOS QUE HICE Y LO QUE NECESITO DE GENERATE APP <3 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
- la funcion lastApp en caso de error que devuelve?
- no entiendo bien la funcion de generate appointment, necesito nada mas que me llene la fecha del nuevo turno, lo demas ya esta
  cuando llenamos la lista de recuperables hay que chequear que el dni sea distinto de 0 (es lo que llena en caso de error la de convert to ssecretary) y si es 0 directamente no lo agrego pq no lo puedo llamar
  hay que ver en donde llamar a la funcion de secretaria por los parametros que recibe
  despues de llamar a secretaria habria que sobreescribir la lista de recuperables

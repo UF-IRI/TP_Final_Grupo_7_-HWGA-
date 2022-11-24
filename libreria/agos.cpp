@@ -26,7 +26,7 @@ secretaryList convertToSecretary(pacient paux, appointment* listApp, int sizeApp
 	newPacient.idDoctorSecL = aux.idDoctor;
 	newPacient.answerSecL = '.'; //lo lleno con un punto hasta que la secretaria lo contacte
 
-	if (i == sizeCon) //O LA FUNCION DE LAST APP DEVUELVE ...
+	if (i == sizeCon||newPacient.dniSecL==0) 
 		newPacient.dniSecL = 0; //en caso de error lleno el cajon del dni con un 0, despues hay que chequearlo
 
 	return newPacient;
@@ -46,7 +46,7 @@ void appendAppointment(fstream& appAppointment, appointment* newAppointments, in
 	return;
 }
 
-void pacientsUpdate(secretaryList*& recoverableList, int sizeRec, pacient*totalList, int sizeTotal, appointment*&newApp, int sizeNewApp)
+void pacientsUpdate(secretaryList*& recoverableList, int sizeRec, string*InsuranceList, int sizeIL, appointment*&newApp, int sizeNewApp)
 {
 	if (recoverableList == nullptr|| totalList==nullptr|| newApp==nullptr)
 		return;
@@ -62,11 +62,7 @@ void pacientsUpdate(secretaryList*& recoverableList, int sizeRec, pacient*totalL
 	appointment aux;
 	time_t current = time(0); //fecha de hoy en time_t
 	string today = convertDateToString(current); //la paso a string 
-
-	//por si quiere cambiar su obra social
-	int IL = 0;
-	string* InsuranceList = new string[IL];
-	generateInsuranceList(totalList, sizeTotal, InsuranceList, IL);
+	string newAppDate;
 
 	for (int i = 0; i < sizeRec; i++)
 	{
@@ -80,28 +76,33 @@ void pacientsUpdate(secretaryList*& recoverableList, int sizeRec, pacient*totalL
 					recoverableList[i].answerSecL = "NoVaAVolver";
 				else
 				{
-					//generateApp!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! tendria que devolver un string de fecha
-					aux.dniPacient = recoverableList[i].dniSecL;
-					//aux.dateAppointment = newAppDate;
-					aux.dateRequest = today; //hoy
-					aux.asistance = 0; //porque es a futuro asi que segurno no fue
-					aux.idDoctor = recoverableList[i].idDoctorSecL;
-					addAppointment(newApp, sizeNewApp, aux); //agrego la nueva consulta en la lista
-
-					recoverableList[i].answerSecL = "NuevaConsulta";
-
-					changeMI = rand() % 2;//0:no quiere cambiar su obra social, 1:la quiere cambiar
-					if (change == 1)
+					//newAppDate=generateApp()
+					if (!(newAppDate == "error"))
 					{
-						string repeated = recoverableList[i].medicalInsuranceSecL;
-						do
-						{
-							newInsurance = rand() % IL; 
-							recoverableList[i].medicalInsuranceSecL = InsuranceList[newInsurance];
+						aux.dniPacient = recoverableList[i].dniSecL;
+						//aux.dateAppointment = newAppDate;
+						aux.dateRequest = today; //hoy
+						aux.asistance = 0; //porque es a futuro asi que segurno no fue
+						aux.idDoctor = recoverableList[i].idDoctorSecL;
+						addAppointment(newApp, sizeNewApp, aux); //agrego la nueva consulta en la lista
 
-						} while (repeated == recoverableList[i].medicalInsurance); //para que no vuelva a ser la misma de antes
-					} 
-					//no tiene sentido agregar un else porque quedaria igual su obra social
+						recoverableList[i].answerSecL = "NuevaConsulta";
+
+						changeMI = rand() % 2;//0:no quiere cambiar su obra social, 1:la quiere cambiar
+						if (change == 1)
+						{
+							string repeated = recoverableList[i].medicalInsuranceSecL;
+							do
+							{
+								newInsurance = rand() % sizeIL; 
+								recoverableList[i].medicalInsuranceSecL = InsuranceList[newInsurance];
+
+							} while (repeated == recoverableList[i].medicalInsurance); //para que no vuelva a ser la misma de antes
+						} 
+						//no tiene sentido agregar un else porque quedaria igual su obra social
+					}
+					else
+						recoverableList[i].answerSecL = "NoSeGeneroUnaNuevaConsulta";
 				}
 
 				break; //si contesto dejo de llamarlo y sigo con los demas pacientes
@@ -116,4 +117,36 @@ void pacientsUpdate(secretaryList*& recoverableList, int sizeRec, pacient*totalL
 
 }
 
+void writeLists(pacient* totalList, int totalSize, pacient*& listUnrecoverable, int& sizeUnrecoverable, secretaryList*& listRecoverable, int& sizeRecoverable, int sizeApp, appointment* listApp, contact*listCon, int sizeCon) //por que la lista de recuperables es de tipo paciente y no secretary list? (loren)
+{
+	if (totalList == nullptr || listUnrecoverable == nullptr || listRecoverable == nullptr || listApp == nullptr)
+		return;
+
+	int i;
+	int cat;
+	secretaryList aux;
+
+	for (i = 0; i < totalSize; i++)
+	{
+		cat = keepingUpWithThePacients(totalList[i], sizeApp, listApp);
+		switch (cat)
+		{
+		case 1://recuperable
+		{
+			aux = convertToSecretary(totalList[i], listApp, sizeApp, listCon, sizeCon); //lo paso al struct del tipo secretaria
+			addSecretary(listRecoverable, sizeRecoverable, aux); //lo agrego a la lista de recuperables
+			break;
+		}
+		case 2: //irrecuperable
+		{
+			addPacient(listUnrecoverable, sizeUnrecoverable, totalList[i]); //lo agrego a la lista de irrecuperables
+			break;
+		}
+		//no pongo deffault porque no nos interesan
+		}
+	}
+
+	return;
+}
+//le paso una lista con todos los pacientes y me devuelve dos listas separadas de recuperables/no recuperables
 
