@@ -378,6 +378,7 @@ string generateRandomAppDate(appointment*& previousApps, int sizePrevApps)
 }
 appointment lastApp(unsigned int dniAux, int sizeListApp, appointment* listApp)
 {
+	double dummy;
 	appointment lastAppointment;
 	lastAppointment.dniPacient = 0;//devuelve 0 en el dni por un error! --> me pasaron un null ptr o no encuentro al dni en la lista de appointment
 	if (listApp != nullptr)
@@ -398,7 +399,7 @@ appointment lastApp(unsigned int dniAux, int sizeListApp, appointment* listApp)
 				{
 					time_t lAppGuardada = convertDateToTimeT(lastAppointment);
 					time_t newLA = convertToTimeT(listApp[i]->dateAppointment);
-					int lD = compareDates(lAppGuardada, newLA);// nombre=lastdate//va a ser un 1 si la que ya tenía guardada es más reciente 
+					int lD = compareDates(lAppGuardada, newLA, &dummy);// nombre=lastdate//va a ser un 1 si la que ya tenía guardada es más reciente 
 					if (lD == -1)
 						break;
 					else if (lD == 2) //la que estoy leyendo ahora es más reciente --> las cambio
