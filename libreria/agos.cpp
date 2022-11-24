@@ -87,22 +87,22 @@ void pacientsUpdate(secretaryList*& recoverableList, int sizeRec, string*Insuran
 						addAppointment(newApp, sizeNewApp, aux); //agrego la nueva consulta en la lista
 
 						recoverableList[i].answerSecL = "NuevaConsulta";
+
+						changeMI = rand() % 2;//0:no quiere cambiar su obra social, 1:la quiere cambiar
+						if (change == 1)
+						{
+							string repeated = recoverableList[i].medicalInsuranceSecL;
+							do
+							{
+								newInsurance = rand() % sizeIL; 
+								recoverableList[i].medicalInsuranceSecL = InsuranceList[newInsurance];
+
+							} while (repeated == recoverableList[i].medicalInsurance); //para que no vuelva a ser la misma de antes
+						} 
+						//no tiene sentido agregar un else porque quedaria igual su obra social
 					}
 					else
 						recoverableList[i].answerSecL = "NoSeGeneroUnaNuevaConsulta";
-
-					changeMI = rand() % 2;//0:no quiere cambiar su obra social, 1:la quiere cambiar
-					if (change == 1)
-					{
-						string repeated = recoverableList[i].medicalInsuranceSecL;
-						do
-						{
-							newInsurance = rand() % sizeIL; 
-							recoverableList[i].medicalInsuranceSecL = InsuranceList[newInsurance];
-
-						} while (repeated == recoverableList[i].medicalInsurance); //para que no vuelva a ser la misma de antes
-					} 
-					//no tiene sentido agregar un else porque quedaria igual su obra social
 				}
 
 				break; //si contesto dejo de llamarlo y sigo con los demas pacientes
@@ -117,4 +117,36 @@ void pacientsUpdate(secretaryList*& recoverableList, int sizeRec, string*Insuran
 
 }
 
+void writeLists(pacient* totalList, int totalSize, pacient*& listUnrecoverable, int& sizeUnrecoverable, secretaryList*& listRecoverable, int& sizeRecoverable, int sizeApp, appointment* listApp, contact*listCon, int sizeCon) //por que la lista de recuperables es de tipo paciente y no secretary list? (loren)
+{
+	if (totalList == nullptr || listUnrecoverable == nullptr || listRecoverable == nullptr || listApp == nullptr)
+		return;
+
+	int i;
+	int cat;
+	secretaryList aux;
+
+	for (i = 0; i < totalSize; i++)
+	{
+		cat = keepingUpWithThePacients(totalList[i], sizeApp, listApp);
+		switch (cat)
+		{
+		case 1://recuperable
+		{
+			aux = convertToSecretary(totalList[i], listApp, sizeApp, listCon, sizeCon); //lo paso al struct del tipo secretaria
+			addSecretary(listRecoverable, sizeRecoverable, aux); //lo agrego a la lista de recuperables
+			break;
+		}
+		case 2: //irrecuperable
+		{
+			addPacient(listUnrecoverable, sizeUnrecoverable, totalList[i]); //lo agrego a la lista de irrecuperables
+			break;
+		}
+		//no pongo deffault porque no nos interesan
+		}
+	}
+
+	return;
+}
+//le paso una lista con todos los pacientes y me devuelve dos listas separadas de recuperables/no recuperables
 

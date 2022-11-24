@@ -84,7 +84,7 @@ string convertDateToString(time_t dato);
 //CATEGORIZAR:
 int keepingUpWithThePacients(pacient paux, int sizeListApp, appointment* listApp);//categoriza el paciente
 appointment lastApp(unsigned int dniAux, int sizeListApp, appointment* listApp);//le paso un dni y me devuelve la ultima consulta de ese paciente
-void writeLists(pacient* totalList, int totalSize, pacient*& listUnrecoverable, int& sizeUnrecoverable, pacient*& listRecoverable, int& sizeRecoverable, int sizeApp, appointment* listApp); //le paso la lista general y me arma las dos listas
+void writeLists(pacient* totalList, int totalSize, pacient*& listUnrecoverable, int& sizeUnrecoverable, secretaryList*& listRecoverable, int& sizeRecoverable, int sizeApp, appointment* listApp, contact* listCon, int sizeCon); //le paso la lista general y me arma las dos listas
 
 //GENERAR CON RANDOM:
 string generateRandomAppDate(appointment*& previousApps, int sizePrevApps);
