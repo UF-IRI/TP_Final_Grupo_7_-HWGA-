@@ -172,42 +172,48 @@ time_t convertDateToTimeT(string dato)
 	int i = 0;
 	int day, month, year;
 	int cont = 0;
-	string auxD, auxM, auxY;
-
-	while (dato[i] != '\0')
+	string auxD{};
+	string auxM{};
+	string auxY{};
+	string aux;
+	int cont2 = 0;
+	while (i < (dato.length() - 1))
 	{
-		int k = 0;
+
 		while (dato[i] != '/')
 		{
 
-			switch (cont)
+			if (cont == 0)
 			{
-			case 0:
+				aux = dato[i];
+				auxD += aux;
+			}
+			else if (cont == 1)
 			{
-				auxM[k] = dato[i];
-				break;
+				aux = dato[i];
+				auxM += aux;
 			}
-			case 1:
+			else
 			{
-				auxD[k] = dato[i];
-				break;
+				if (cont2 >= 4)
+					break;
+				aux = dato[i];
+				auxY += aux;
+				cont2++;
 			}
-			case 2:
-			{
-				auxY[k] = dato[i];
-				break;
-			}
-			}
-			k++;
+
 			i++;
 
 		}
 		cont++;
 		i++;
 	}
+
+
 	day = stoi(auxD);
 	month = stoi(auxM);
 	year = stoi(auxY);
+
 
 	tm date{};
 	date.tm_year = year - 1900;
@@ -215,7 +221,6 @@ time_t convertDateToTimeT(string dato)
 	date.tm_mday = day;
 
 	time_t finalDate = mktime(&date);
-
 	return finalDate;
 }
 //le doy una string y me la devuelve en time_t
