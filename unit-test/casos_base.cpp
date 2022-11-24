@@ -10,7 +10,7 @@ namespace Casos_Base::tests
 		day.tm_mon = 11; //dic
 		day.tm_mday = 18; 
 
-		string daySTR = "18/11/2022";
+		string daySTR = "18/12/2022";
 
 		time_t seg = mktime(&day);
 
