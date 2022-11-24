@@ -46,9 +46,9 @@ void appendAppointment(fstream& appAppointment, appointment* newAppointments, in
 	return;
 }
 
-void pacientsUpdate(secretaryList*& recoverableList, int sizeRec, string*InsuranceList, int sizeIL, appointment*&newApp, int sizeNewApp)
+void pacientsUpdate(secretaryList*& recoverableList, int sizeRec, string*InsuranceList, int sizeIL, appointment*&newApp, int &sizeNewApp)
 {
-	if (recoverableList == nullptr|| totalList==nullptr|| newApp==nullptr)
+	if (recoverableList == nullptr|| InsuranceList==nullptr|| newApp==nullptr)
 		return;
 
 	//datos generados por random
@@ -76,11 +76,11 @@ void pacientsUpdate(secretaryList*& recoverableList, int sizeRec, string*Insuran
 					recoverableList[i].answerSecL = "NoVaAVolver";
 				else
 				{
-					//newAppDate=generateApp()
+					newAppDate = generateRandomAppDate();
 					if (!(newAppDate == "error"))
 					{
 						aux.dniPacient = recoverableList[i].dniSecL;
-						//aux.dateAppointment = newAppDate;
+						aux.dateAppointment = newAppDate;
 						aux.dateRequest = today; //hoy
 						aux.asistance = 0; //porque es a futuro asi que segurno no fue
 						aux.idDoctor = recoverableList[i].idDoctorSecL;
