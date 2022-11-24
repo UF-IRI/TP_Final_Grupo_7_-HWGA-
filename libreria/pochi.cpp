@@ -360,10 +360,11 @@ appointment lastApp(unsigned int dniAux, int sizeListApp, appointment* listApp)
 				}
 				else
 				{
-				
-					int lD = compareDates(lastAppointment.dateAppointment, listApp[i]->dateAppointment);// nombre=lastdate//va a ser un 1 si la que ya tenía guardada es más reciente 
+					time_t lAppGuardada = convertDateToTimeT(lastAppointment);
+					time_t newLA = convertToTimeT(listApp[i]->dateAppointment);
+					int lD = compareDates(lAppGuardada, newLA);// nombre=lastdate//va a ser un 1 si la que ya tenía guardada es más reciente 
 					if (lD == -1)
-						int x;//!!!!!!!!!!!!!!!!!!!!!NIO SE QUE PONER ACA Y POR ALGUNA RAZON NO ME ENTIENDE EL COMPARE DATES!!!!HUBO UN ERROR, DECIDIR QUE DEVUELVE O SI DIRECTAMENTE BREAKEO Y ME VOY DE LA FUNCION CON EL DATO DE LA ÚLTIMA FECHA QUE ENCONTRE ANTES DE PONER EN TRUE EL BOOLEANO !!!!!!!!!!!!!!!!!!!!
+						break;
 					else if (lD == 2) //la que estoy leyendo ahora es más reciente --> las cambio
 						lastAppointment = listApp[i];
 				}
