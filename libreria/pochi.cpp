@@ -342,8 +342,7 @@ int keepingUpWithThePacients(pacient paux, int sizeListApp, appointment* listApp
 string generateRandomAppDate()
 {
 	string newDate = "error";
-	if (previousApps != nullptr)
-	{
+	
 		time_t today = time(NULL);
 		srand (time(NULL));
 		bool again=false;
@@ -373,7 +372,7 @@ string generateRandomAppDate()
 						
 		} while (again);
 
-	}
+
 	return newDate;
 }
 appointment lastApp(unsigned int dniAux, int sizeListApp, appointment* listApp)
