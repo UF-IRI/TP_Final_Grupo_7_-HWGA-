@@ -87,15 +87,15 @@ appointment lastApp(unsigned int dniAux, int sizeListApp, appointment* listApp);
 void writeLists(pacient* totalList, int totalSize, pacient*& listUnrecoverable, int& sizeUnrecoverable, pacient*& listRecoverable, int& sizeRecoverable, int sizeApp, appointment* listApp); //le paso la lista general y me arma las dos listas
 
 //GENERAR CON RANDOM:
-
+string generateRandomAppDate(appointment*& previousApps, int sizePrevApps);
+//lee las appointments nuevas guardadas y me genera una fecha random para la próxima
 
 //AUXILIARES:
 string UP(string word);//pasa a mayuscula una palabra
 void generateInsuranceList(pacient* totalList, int sizeTotal, string*& listIn, int& sizeIn);
 
 
-appointment generateRandomApp(appointment lastApp, secretaryList pacient, appointment*& previousApps, doctor* docList, int sizeDoc);
-//lee el array de pacientes y crea una lista de tipo string con las obras sociales presentes en la lista de pacientes --> asumimos que el hospital trabaja únicamente con las obras sociales de la lista (todas las os con las que trabaja e´stán incluídas)
+
 
 
 //ESCRIBIR ARCHIVOS:

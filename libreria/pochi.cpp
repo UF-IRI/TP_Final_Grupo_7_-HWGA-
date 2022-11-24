@@ -339,7 +339,37 @@ int keepingUpWithThePacients(pacient paux, int sizeListApp, appointment* listApp
 }
 //devuelve un int con la categoría
 
+string generateRandomAppDate(appointment*& previousApps, int sizePrevApps)
+{
+	string newDate = error;
+	if (previousApps != nullptr)
+	{
+		time_t today = time(NULL);
+		srand (time(NULL));
+		bool again=false;
 
+		do
+		{
+			int year = rand() % 3 + currentYear; //si es un 0 --> este año; si es 1 --> el año que viene; si es 2 --> en dos años // asumo que no se puede programar una app para dentro de 25 años porque ya se murieron todos, abrazo
+			int month = rand() % 12 + 1;//me da un nro de 0 a 11 y lo cambio para que sea de 1 a 12 
+			int day;
+			if (month == 2)
+				day = rand() % 28 + 1;//no verifico que sea un año bisiesto, el 29 es dia de ñoquis y mis doctores no atienden
+			else
+				if (month == 4 || month == 6 || month == 9 || month == 11)
+				{
+					day = rand() % 30 + 1;
+				}
+				else
+					day = rand() % 31 + 1;
+			string dateNextApp = to_string(day) + '/' + to_string(month) + '/' + to_string(year);//la paso a string 
+			time_t newD=
+
+		} while (again);
+
+	}
+	return newDate;
+}
 appointment lastApp(unsigned int dniAux, int sizeListApp, appointment* listApp)
 {
 	appointment lastAppointment;
