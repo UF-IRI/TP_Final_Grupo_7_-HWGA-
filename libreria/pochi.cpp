@@ -308,9 +308,9 @@ int keepingUpWithThePacients(pacient paux, int sizeListApp, appointment* listApp
 		{
 			time_t current = time(0); //hoy
 			appointment dummyApp = lastApp(paux.dni, sizeListApp, listApp); //dummy porque solo me importan la fecha y el booleano
-			time_t lastAppDate = convertToTimeT(dummyApp.dateAppointment);
+			time_t lastAppDate = convertDateToTimeT(dummyApp.dateAppointment);
 			double timeBD;
-			int lastD = compareDates(current, lastAppDate, &timeBD);
+			int lastD = compareDates(current, lastAppDate, timeBD);
 			switch (lastD)
 			{
 			case -1:
@@ -341,7 +341,7 @@ int keepingUpWithThePacients(pacient paux, int sizeListApp, appointment* listApp
 
 string generateRandomAppDate(appointment*& previousApps, int sizePrevApps)
 {
-	string newDate = error;
+	string newDate = "error";
 	if (previousApps != nullptr)
 	{
 		time_t today = time(NULL);
@@ -364,8 +364,8 @@ string generateRandomAppDate(appointment*& previousApps, int sizePrevApps)
 				else
 					day = rand() % 31 + 1;
 			newDate = to_string(day) + '/' + to_string(month) + '/' + to_string(year);//la paso a string 
-			time_t newD = convertToTimeT(dateNextApp);
-			int lDate = compareDates(today, newD, &dummy); 
+			time_t newD = convertDateToTimeT(newDate);
+			int lDate = compareDates(today, newD, dummy); 
 			if (lDate !=2)
 			{
 				again = true;//me devuelve 1 si la más reciente es hoy --> me hizo una nueva para el pasado el bobon || me devuelve un -1 si hubo error
@@ -397,9 +397,9 @@ appointment lastApp(unsigned int dniAux, int sizeListApp, appointment* listApp)
 				}
 				else
 				{
-					time_t lAppGuardada = convertDateToTimeT(lastAppointment);
-					time_t newLA = convertToTimeT(listApp[i]->dateAppointment);
-					int lD = compareDates(lAppGuardada, newLA, &dummy);// nombre=lastdate//va a ser un 1 si la que ya tenía guardada es más reciente 
+					time_t lAppGuardada = convertDateToTimeT(lastAppointment.dateAppointment);
+					time_t newLA = convertDateToTimeT(listApp[i].dateAppointment);
+					int lD = compareDates(lAppGuardada, newLA, dummy);// nombre=lastdate//va a ser un 1 si la que ya tenía guardada es más reciente 
 					if (lD == -1)
 						break;
 					else if (lD == 2) //la que estoy leyendo ahora es más reciente --> las cambio
