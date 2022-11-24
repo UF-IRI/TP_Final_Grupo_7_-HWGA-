@@ -94,7 +94,7 @@ string UP(string word);//pasa a mayuscula una palabra
 void generateInsuranceList(pacient* totalList, int sizeTotal, string*& listIn, int& sizeIn);
 
 
-appointment generateRandomApp(appointment lastApp, secretaryList pacient, appointment*& previousApps, doctor* docList);
+appointment generateRandomApp(appointment lastApp, secretaryList pacient, appointment*& previousApps, doctor* docList, int sizeDoc);
 //lee el array de pacientes y crea una lista de tipo string con las obras sociales presentes en la lista de pacientes --> asumimos que el hospital trabaja únicamente con las obras sociales de la lista (todas las os con las que trabaja e´stán incluídas)
 
 

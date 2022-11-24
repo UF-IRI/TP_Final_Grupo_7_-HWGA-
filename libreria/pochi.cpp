@@ -409,7 +409,7 @@ void writeLists(pacient* totalList, int totalSize, pacient*& listUnrecoverable, 
 //le paso una lista con todos los pacientes y me devuelve dos listas separadas de recuperables/no recuperables
 
 //GENERAR CON RANDOM
-void generateRandomApp(appointment lastApp, secretaryList pacient, appointment*& previousApps, doctor* docList)
+void generateRandomApp(appointment lastApp, secretaryList pacient, appointment*& previousApps, doctor* docList, int sizeDoc)
 {
 	if (previousApps == nullptr || docList == nullptr)
 		return;
@@ -443,7 +443,11 @@ void generateRandomApp(appointment lastApp, secretaryList pacient, appointment*&
 
 	} while (again); //no le pongo un límite de consultas por día porque asumo que mi hospital es mágico y tiene 210998765 horas al dia para atender gente porque les re imprta la salud del pueblo :)
 
-
+	doctor aux;
+	for (int i = 0; i < sizeDoc; i++)
+	{
+		if()
+	}
 
 
 
