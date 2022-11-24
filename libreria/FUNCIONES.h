@@ -87,7 +87,7 @@ appointment lastApp(unsigned int dniAux, int sizeListApp, appointment* listApp);
 void writeLists(pacient* totalList, int totalSize, pacient*& listUnrecoverable, int& sizeUnrecoverable, secretaryList*& listRecoverable, int& sizeRecoverable, int sizeApp, appointment* listApp, contact* listCon, int sizeCon); //le paso la lista general y me arma las dos listas
 
 //GENERAR CON RANDOM:
-string generateRandomAppDate(appointment*& previousApps, int sizePrevApps);
+string generateRandomAppDate();
 //lee las appointments nuevas guardadas y me genera una fecha random para la próxima
 
 //AUXILIARES:

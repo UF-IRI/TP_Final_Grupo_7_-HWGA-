@@ -339,7 +339,7 @@ int keepingUpWithThePacients(pacient paux, int sizeListApp, appointment* listApp
 }
 //devuelve un int con la categoría
 
-string generateRandomAppDate(appointment*& previousApps, int sizePrevApps)
+string generateRandomAppDate()
 {
 	string newDate = "error";
 	if (previousApps != nullptr)
