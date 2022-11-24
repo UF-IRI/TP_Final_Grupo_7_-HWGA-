@@ -99,11 +99,9 @@ void generateInsuranceList(pacient* totalList, int sizeTotal, string*& listIn, i
 void writeFileUnrecoverable(fstream &rUnrecoverable, int sizeUnrecoverable, pacient* listUnrecoverable);
 void writeFileRecoverable(fstream &rRecoverable, int sizeRecoverable, secretaryList* listRecoverable);
 
-
-
 //SECRETARÍA
 secretaryList convertToSecretary(pacient paux, appointment* listApp, int sizeApp, contact* listCon, int sizeCon); //le paso un paciente y me lo convierte en el struct secretaría
-void pacientsUpdate(secretaryList*& recoverableList, int sizeRec, string* InsuranceList, int sizeIL, appointment*& newApp, int sizeNewApp);
+void pacientsUpdate(secretaryList*& recoverableList, int sizeRec, string* InsuranceList, int sizeIL, appointment*& newApp, int& sizeNewApp);
 void appendAppointment(fstream &appAppointment, appointment* newAppointments, int howMany);
 
 /*
