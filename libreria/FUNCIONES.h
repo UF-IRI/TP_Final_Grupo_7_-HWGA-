@@ -12,7 +12,7 @@ typedef struct {
 	unsigned int dniPacient;
 	string dateAppointment;
 	string dateRequest;
-	bool asistance; //hay que cambiarlo, ya no es mas un bool es un int (0 o 1)
+	int asistance; 
 	string idDoctor;
 } appointment;
 
