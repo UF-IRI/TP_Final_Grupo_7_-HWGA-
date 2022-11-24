@@ -49,7 +49,7 @@ int main()
 	int sizeRecoverable = 0;
 	pacient* listUnrecoverable = new pacient[sizeUnrecoverable];
 	secretaryList* listRecoverable = new secretaryList[sizeRecoverable]; 
-	writeLists(listPac, sizePac, listUnrecoverable, sizeUnrecoverable, listRecoverable, sizeRecoverable, sizeApp, listApp); //escribo las dos listas de pacientes que me interesan
+	writeLists(listPac, sizePac, listUnrecoverable, sizeUnrecoverable, listRecoverable, sizeRecoverable, sizeApp, listApp, listCon, sizeCon); //escribo las dos listas de pacientes que me interesan
 
 	string routeRecoverable = (BASE_PATH + "../data_files/output/Recoverable.csv");
 	string routeUnrecoverable = (BASE_PATH + "../data_files/output/Unrecoverable.csv");
