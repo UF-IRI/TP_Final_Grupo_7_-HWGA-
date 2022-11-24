@@ -3,7 +3,7 @@
 namespace Casos_Base::tests 
 	
 {
-	/*TEST(convertDateToTimeT, C1)
+	TEST(convertDateToTimeT, C1)
 	{
 		tm day;//la inicializo en tm parra pasarla a time_t y es string para verificar que me den lo mismo
 		day.tm_year = 2022;
@@ -21,13 +21,14 @@ namespace Casos_Base::tests
 	
 	TEST(compareDates, normal) //normalito
 	{
+		double dummy;
 	
 		time_t todayt = time(0);
 
 		string sod = "12/11/2022";
 		time_t sodT = convertDateToTimeT(sod);
 
-		EXPECT_THAT(compareDates(todayt, sodT), 1);
+		EXPECT_THAT(compareDates(todayt, sodT, dummy), 1);
 	}
 
 	TEST(compareDates, sameday)
@@ -35,7 +36,9 @@ namespace Casos_Base::tests
 		string sameD = "12/11/2006";
 		time_t sameDT = convertDateToTimeT(sameD);
 
-		EXPECT_THAT(compareDates(sameDT, sameDT), 2);
+		double dummy2;
 
-	}*/
+		EXPECT_THAT(compareDates(sameDT, sameDT, dummy2), 2);
+
+	}
 }
