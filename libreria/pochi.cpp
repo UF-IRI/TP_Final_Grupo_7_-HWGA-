@@ -370,17 +370,7 @@ string generateRandomAppDate(appointment*& previousApps, int sizePrevApps)
 			{
 				again = true;//me devuelve 1 si la más reciente es hoy --> me hizo una nueva para el pasado el bobon || me devuelve un -1 si hubo error
 			}
-			else
-			{
-				int counter = 0;
-				for (int k = 0; k < sizePrevApps; k++)
-				{
-					if (previousApps[i].dateAppointment == newDate)
-						counter++;
-				}
-				again = (counter > 10) ? true : false; //ponele que en un dia puedo atender hasta a 10 pacientes porque mi hospital tiene 15 cm cuadrados y cada consulta tarda 86789 horas
-			}
-			
+						
 		} while (again);
 
 	}
@@ -423,7 +413,7 @@ appointment lastApp(unsigned int dniAux, int sizeListApp, appointment* listApp)
 }
 //le doy un dni y me devuelve la ultima consulta del paciente
 
-//no te toque el codigo pochi pero necesito que la lista de recuperables sea del tipo secretaria, ya hice la funcion covert to secretary :) (agos)
+
 
 
 
