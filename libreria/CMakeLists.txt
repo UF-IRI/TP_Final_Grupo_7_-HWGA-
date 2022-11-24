@@ -1,6 +1,6 @@
 ## >>>>>>>>>>>>>>>
 ## >>>>>>>>>>>>>>>
-add_library(libreria FUNCIONES.H loren.cpp pochi.cpp)
+add_library(libreria agos.cpp FUNCIONES.H loren.cpp pochi.cpp)
 ## <<<<<<<<<<<<<<<
 ## <<<<<<<<<<<<<<<
 
