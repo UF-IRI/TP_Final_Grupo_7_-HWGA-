@@ -44,15 +44,12 @@ int main()
 	
 	//HASTA ACA FUNCIONA TODO EN TEORÍA :):)
 
-
+	//me creo las listas de recuperables e irrecuperables
 	int sizeUnrecoverable = 0;
 	int sizeRecoverable = 0;
 	pacient* listUnrecoverable = new pacient[sizeUnrecoverable];
 	secretaryList* listRecoverable = new secretaryList[sizeRecoverable]; 
 	writeLists(listPac, sizePac, listUnrecoverable, sizeUnrecoverable, listRecoverable, sizeRecoverable, sizeApp, listApp); //escribo las dos listas de pacientes que me interesan
-	delete[]listPac; //como ya me cree la dos listas de pacientes q me interesan borro lo otro;
-	listPac = NULL;
-
 
 	string routeRecoverable = (BASE_PATH + "../data_files/output/Recoverable.csv");
 	string routeUnrecoverable = (BASE_PATH + "../data_files/output/Unrecoverable.csv");
@@ -73,6 +70,14 @@ int main()
 	listRecoverable = NULL;
 
 	//secretaria falta q labures vos
+	int sizeInsuranceList = 0;
+	string* insuranceList = new string[sizeInsuranceList]; //lista dinamica con las obras sociales
+	generateInsuranceList(listPac, sizePac, insuranceList, sizeInsuranceList); //genera una lista con las obras sociales
+
+	int sizeNewAppointments = 0;
+	appointment* listNewppointments = new appointment[sizeNewAppointments];
+	pacientsUpdate(listRecoverable, sizeRecoverable, insuranceList, sizeInsuranceList, listNewppointments, sizeNewAppointments);
+
 
 
 
@@ -80,4 +85,5 @@ int main()
 	delete[] listCon;
 	delete[] listApp;
 	delete[] listDoc;
+	delete[] listPac;
 }
