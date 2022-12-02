@@ -231,9 +231,9 @@ string convertDateToString(time_t dato)
 	tm* dateTM;
 	dateTM = localtime(&dato);
 
-	string dateSTR = to_string(dateTM->tm_mday) + '/' + to_string(dateTM->tm_mon) + '/' + to_string(dateTM->tm_year);
+	string dateSTR = to_string(dateTM->tm_mday)+ '/' + to_string(dateTM->tm_mon+1) + '/' + to_string(dateTM->tm_year+1900);
 
-	return dateSTR;
+	return dateSTR;9688
 
 }
 //le doy un time_t y me lo devuelve en string
@@ -250,7 +250,7 @@ int compareDates(time_t fDate, time_t sDate, double& timeBetweenDates) // le pas
 	{
 		lastDate = (timeBetweenDates < 0) ? 1 : 2;
 	}
-
+	timeBetweenDates = abs(timeBetweenDates);
 	return lastDate;
 }
 //le doy dos fechas, me devuelve la posición de la más reciente y me llena el double con la diferencia entre las fechas
@@ -348,36 +348,26 @@ int keepingUpWithThePacients(pacient paux, int sizeListApp, appointment* listApp
 string generateRandomAppDate()
 {
 	string newDate = "error"; //lo inicializo así por las dudas aunque no sé por qué no me guardaría la nueva fecha, de todos modos si no salió sabemos que es un error 
-	
-		time_t today = time(NULL);
-		srand (time(NULL));
-		bool again=false;
-		double dummy;
 
-		do
+	srand(time(NULL));
+	bool again = false;
+	double dummy;
+
+
+
+	int year = rand() % 2 + 2023; //si es un 0 --> 2023; si es 1 --> 2024 asumo que no se puede programar una app para dentro de 25 años porque ya se murieron todos, abrazo // asumo que no pongo más para este año porque mis médicos tienen demora de un mes por la consulta y estamos en diciembre :))))
+	int month = rand() % 12 + 1;//me da un nro de 0 a 11 y lo cambio para que sea de 1 a 12 
+	int day;
+	if (month == 2)
+		day = rand() % 28 + 1;//no verifico que sea un año bisiesto, el 29 es dia de ñoquis y mis doctores no atienden
+	else
+		if (month == 4 || month == 6 || month == 9 || month == 11)
 		{
-			int year = rand() % 3 + currentYear; //si es un 0 --> este año; si es 1 --> el año que viene; si es 2 --> en dos años // asumo que no se puede programar una app para dentro de 25 años porque ya se murieron todos, abrazo
-			int month = rand() % 12 + 1;//me da un nro de 0 a 11 y lo cambio para que sea de 1 a 12 
-			int day;
-			if (month == 2)
-				day = rand() % 28 + 1;//no verifico que sea un año bisiesto, el 29 es dia de ñoquis y mis doctores no atienden
-			else
-				if (month == 4 || month == 6 || month == 9 || month == 11)
-				{
-					day = rand() % 30 + 1;
-				}
-				else
-					day = rand() % 31 + 1;
-			newDate = to_string(day) + '/' + to_string(month) + '/' + to_string(year);//la paso a string  --> es lo que voy a devolver 
-			time_t newD = convertDateToTimeT(newDate); //lo convierto para verificar que esté programado para el futuro
-			int lDate = compareDates(today, newD, dummy); 
-			if (lDate !=2)
-			{
-				again = true;//me devuelve 1 si la más reciente es hoy --> me hizo una nueva para el pasado el bobon || me devuelve un -1 si hubo error
-			}
-						
-		} while (again);
-
+			day = rand() % 30 + 1;
+		}
+		else
+			day = rand() % 31 + 1;
+	newDate = to_string(day) + '/' + to_string(month) + '/' + to_string(year);//la paso a string  --> es lo que voy a devolver 
 
 	return newDate;
 }
