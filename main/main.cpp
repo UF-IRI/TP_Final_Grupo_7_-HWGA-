@@ -62,6 +62,8 @@ int main()
 	listUnrecoverable = NULL;
 
 	
+
+	//ARCHIVO SECRETARÍA.
 	fstream rRecoverable;
 	rRecoverable.open(routeRecoverable, ios::out); //abro el archivo de recuperables para escritura
 	writeFileRecoverable(rRecoverable, sizeRecoverable, listRecoverable); //escribo el archivo recuperables a partir de la lista recuperables
