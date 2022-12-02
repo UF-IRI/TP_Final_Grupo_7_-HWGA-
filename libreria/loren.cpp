@@ -27,8 +27,26 @@ void writeFileRecoverable(fstream &rRecoverable, int sizeRecoverable, secretaryL
 	{
 		rRecoverable << listRecoverable[i].namePacientSecL << " , " << listRecoverable[i].lastNamePacientSecL << " , "
 			<< listRecoverable[i].dniSecL << " , " << listRecoverable[i].medicalInsuranceSecL << " , " << listRecoverable[i].idDoctorSecL
-			<< listRecoverable[i].cellphoneNumberSecL << " , " << "." << endl;
+			<< " , " << listRecoverable[i].cellphoneNumberSecL << " , " << "." << endl;
 		i++;
+	}
+	return;
+}
+
+
+void readFileRecoverable(fstream &newrRecoverable, secretaryList *& newListRecoverable, int& sizeNewListRecoverable)															 
+{
+	if (!(newrRecoverable.is_open()) || newListRecoverable == nullptr)
+		return;
+	string dummy;
+	secretaryList aux;
+	newrRecoverable >> dummy >> dummy >> dummy >> dummy >> dummy >> dummy >> dummy >> dummy >> dummy >> dummy >> dummy >> dummy >> dummy;
+	
+	while (newrRecoverable)
+	{
+		newrRecoverable >> aux.namePacientSecL >> dummy >> aux.lastNamePacientSecL >> dummy >> aux.dniSecL >> dummy >> aux.medicalInsuranceSecL 
+			>> dummy >> aux.idDoctorSecL >> dummy >> aux.cellphoneNumberSecL >> dummy >> aux.answerSecL;
+		addSecretary(newListRecoverable, sizeNewListRecoverable, aux);
 	}
 	return;
 }
