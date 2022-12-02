@@ -366,7 +366,9 @@ string generateRandomAppDate()
 			day = rand() % 31 + 1;
 	newDate = to_string(day) + '/' + to_string(month) + '/' + to_string(year);//la paso a string  --> es lo que voy a devolver 
 
-	return newDate;
+	string newDateRet = newDate;
+	newDate = '0';
+	return newDateRet;
 }
 appointment lastApp(unsigned int dniAux, int sizeListApp, appointment* listApp)
 {
