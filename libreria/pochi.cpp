@@ -250,7 +250,7 @@ int compareDates(time_t fDate, time_t sDate, double& timeBetweenDates) // le pas
 	{
 		lastDate = (timeBetweenDates < 0) ? 1 : 2;
 	}
-
+	timeBetweenDates = abs(timeBetweenDates);
 	return lastDate;
 }
 //le doy dos fechas, me devuelve la posición de la más reciente y me llena el double con la diferencia entre las fechas
@@ -311,14 +311,17 @@ int keepingUpWithThePacients(pacient paux, int sizeListApp, appointment* listApp
 		else
 		{
 			time_t current = time(0); //hoy
-			appointment dummyApp = lastApp(paux.dni, sizeListApp, listApp); //dummy porque solo me importan la fecha y el booleano
+			appointment dummyApp = lastApp(paux.dni, sizeListApp, listApp); //dummy porque solo me importan la fecha y la asistencia
 			time_t lastAppDate = convertDateToTimeT(dummyApp.dateAppointment);
 			double timeBD;
 			int lastD = compareDates(current, lastAppDate, timeBD);
 			switch (lastD)
 			{
 			case -1:
-				return -1;
+			{
+				category = -1;
+				break;
+			}
 			case 1: //la fecha más nueva es hoy --> ya pasó
 			{
 
