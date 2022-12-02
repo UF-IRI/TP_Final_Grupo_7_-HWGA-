@@ -347,7 +347,7 @@ int keepingUpWithThePacients(pacient paux, int sizeListApp, appointment* listApp
 
 string generateRandomAppDate()
 {
-	string newDate = "error";
+	string newDate = "error"; //lo inicializo así por las dudas aunque no sé por qué no me guardaría la nueva fecha, de todos modos si no salió sabemos que es un error 
 	
 		time_t today = time(NULL);
 		srand (time(NULL));
@@ -368,8 +368,8 @@ string generateRandomAppDate()
 				}
 				else
 					day = rand() % 31 + 1;
-			newDate = to_string(day) + '/' + to_string(month) + '/' + to_string(year);//la paso a string 
-			time_t newD = convertDateToTimeT(newDate);
+			newDate = to_string(day) + '/' + to_string(month) + '/' + to_string(year);//la paso a string  --> es lo que voy a devolver 
+			time_t newD = convertDateToTimeT(newDate); //lo convierto para verificar que esté programado para el futuro
 			int lDate = compareDates(today, newD, dummy); 
 			if (lDate !=2)
 			{
@@ -421,6 +421,43 @@ appointment lastApp(unsigned int dniAux, int sizeListApp, appointment* listApp)
 
 
 
+
+// CAPAZ ME QUIEREN MATAR, CAPAZ NO --> LO VEREMOS A LA TARDE
+string searchDoc(string idLastDoc, doctor* listDoc, int sizeDoc)
+{
+	string idDoc = "noSePudoEncontrarUnNuevoDoctor";
+	if (listDoc != 0)
+	{
+		bool active = false;
+		int i,k;
+		for ( i = 0; i < sizeDoc; i++)
+		{
+			if (listDoc[i].doctorId == idLastDoc)
+			{
+				break;
+			}
+		}
+
+		if (listDoc[i].active == 1)//el doctor está activo
+		{
+			active = true;
+			idDoc = idLastDoc; //si sigue activo le dejo el mismo 
+		}
+
+		if (!active)
+		{
+			for ( k = 0; k < sizeDoc; k++) //si justo ese médico no estaba activo busco otro con la misma especialidad pero que si esté activo
+			{
+				if (listDoc[k].specialty == listDoc[i].specialty && listDoc[k].active == 1)
+				{
+					idDoc = listDoc[k].doctorId; //si hay 7 personas buscando un otorrinolaringólogo y yo les tengo que buscar un médico con esto van a ir todos al mismo porque es el primero que me aparece ysi
+					break;
+				}
+			} //si no hay otro doc con la misma especialidad y que además esté activo me va a quedar el "noSePudoEncontrarUnNuevoDoctor" y habría que contemplarlo en lo de la secretaría
+		}
+	}
+	return idDoc;
+}
 
 
 

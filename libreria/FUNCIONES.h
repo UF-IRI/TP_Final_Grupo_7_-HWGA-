@@ -30,7 +30,7 @@ typedef struct {
 	string lastNameDoctor;
 	string specialty;
 	string telephoneDoctor;
-	bool active;
+	int active;
 } doctor;
 
 typedef struct {
@@ -93,7 +93,7 @@ string generateRandomAppDate();
 //AUXILIARES:
 string UP(string word);//pasa a mayuscula una palabra
 void generateInsuranceList(pacient* totalList, int sizeTotal, string*& listIn, int& sizeIn);
-
+string searchDoc(string idLastDoc, doctor* listDoc, int sizeDoc);
 
 //ESCRIBIR ARCHIVOS:
 void writeFileUnrecoverable(fstream &rUnrecoverable, int sizeUnrecoverable, pacient* listUnrecoverable);
