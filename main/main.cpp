@@ -54,6 +54,7 @@ int main()
 	string routeRecoverable = (BASE_PATH + "../data_files/output/Recoverable.csv");
 	string routeUnrecoverable = (BASE_PATH + "../data_files/output/Unrecoverable.csv");
 
+
 	fstream rUnrecoverable;
 	rUnrecoverable.open(routeUnrecoverable, ios::out);//abro el archivo de irrecuperables para escritura
 	writeFileUnrecoverable(rUnrecoverable, sizeUnrecoverable, listUnrecoverable); //escribo el archivo irrecuperables a partir de la lista irrecuperables
@@ -70,6 +71,15 @@ int main()
 	rRecoverable.close();
 	delete[]listRecoverable; //libera la memoria de la lista de recuperables
 	listRecoverable = NULL;
+
+	//LEO EL ARCHIVO PARA PASARLO A MEMORIA DINÁMICA
+	fstream newrRecoverable;
+	int newSizeRecoverable=0;
+	secretaryList* newListRecoverable = new secretaryList[newSizeRecoverable];
+	newrRecoverable.open(routeRecoverable, ios::in);
+	readFileRecoverable(newrRecoverable, newListRecoverable, newSizeRecoverable);
+	newrRecoverable.close();
+
 
 	//secretaria falta q labures vos
 	int sizeInsuranceList = 0;
@@ -89,4 +99,5 @@ int main()
 	delete[] listApp;
 	delete[] listDoc;
 	delete[] listPac;
+	delete[] newListRecoverable;
 }
