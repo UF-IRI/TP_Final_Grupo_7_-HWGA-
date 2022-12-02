@@ -19,6 +19,7 @@ secretaryList convertToSecretary(pacient paux, appointment* listApp, int sizeApp
 	newPacient.lastNamePacientSecL = paux.lastNAmePacient;
 	newPacient.dniSecL = paux.dni;
 	newPacient.medicalInsuranceSecL = paux.idInsurance;
+	newPacient.cellphoneNumberSecL = "0"; //inicializo en 0 por si nunca lo encuentra
 
 	int i;
 
@@ -126,7 +127,7 @@ void pacientsUpdate(secretaryList*& recoverableList, int sizeRec, string*Insuran
 
 }
 
-void writeLists(pacient* totalList, int totalSize, pacient*& listUnrecoverable, int& sizeUnrecoverable, secretaryList*& listRecoverable, int& sizeRecoverable, int sizeApp, appointment* listApp, contact*listCon, int sizeCon) //por que la lista de recuperables es de tipo paciente y no secretary list? (loren)
+void writeLists(pacient* totalList, int totalSize, pacient*& listUnrecoverable, int& sizeUnrecoverable, secretaryList*& listRecoverable, int& sizeRecoverable, int sizeApp, appointment* listApp, contact*listCon, int sizeCon)
 {
 	if (totalList == nullptr || listUnrecoverable == nullptr || listRecoverable == nullptr || listApp == nullptr)
 		return;
