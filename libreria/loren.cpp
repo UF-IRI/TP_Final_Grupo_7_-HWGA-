@@ -8,8 +8,8 @@ void writeFileUnrecoverable(fstream &rUnrecoverable, int sizeUnrecoverable, paci
 	int i = 0;
 	while (i < sizeUnrecoverable)
 	{
-		rUnrecoverable << listUnrecoverable[i].namePacient << "," << listUnrecoverable[i].lastNAmePacient
-			<< "," << listUnrecoverable[i].dni << "," << listUnrecoverable[i].state << endl;
+		rUnrecoverable << listUnrecoverable[i].namePacient << " , " << listUnrecoverable[i].lastNAmePacient
+			<< " , " << listUnrecoverable[i].dni << " , " << listUnrecoverable[i].state << endl;
 		i++;
 	}
 	return;
