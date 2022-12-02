@@ -67,6 +67,7 @@ void readPac(fstream &rPac, pacient*&listPac, int&sizePac);
 void readCon(fstream &rCon, contact*& listCon, int& sizeCon);
 void readApp(fstream &rApp, appointment*& listApp, int& sizeApp);
 void readDoc(fstream &rDoc, doctor*& listDoc, int& sizeDoc);
+void readFileRecoverable(fstream& newrRecoverable, secretaryList*& newListRecoverable, int& sizeNewListRecoverable);
 
 //RESIZE:
 void addPacient(pacient*& listP, int& sizeP, pacient auxP);
