@@ -36,8 +36,7 @@ secretaryList convertToSecretary(pacient paux, appointment* listApp, int sizeApp
 	newPacient.idDoctorSecL = aux.idDoctor;
 	newPacient.answerSecL = '.'; //lo lleno con un punto hasta que la secretaria lo contacte
 
-	if (i == sizeCon)
-		newPacient.cellphoneNumberSecL = '0'; //en caso de error lleno el cajon del celular con un 0, significa que nunca lo encontre y si no lo encontre no lo voy a llamar no le voy a ir a tocar timbre.
+
 
 	return newPacient;
 
@@ -76,7 +75,7 @@ void pacientsUpdate(secretaryList*& recoverableList, int sizeRec, string*Insuran
 
 	for (int i = 0; i < sizeRec; i++)
 	{
-		if (recoverableList[i].cellphoneNumberSecL != "0")
+		if (recoverableList[i].cellphoneNumberSecL != "0") //significaría que no existe el contacto en el archivo 
 		{
 			for (a = 0; a < 10; a++) //llamo como maximo 10 veces a cada paciente
 			{

@@ -23,11 +23,11 @@ void writeFileRecoverable(fstream &rRecoverable, int sizeRecoverable, secretaryL
 	rRecoverable << "NamePacient" << " , " << "LastNamePacient" << " , " << "DNI" << " , " << "MedicalInsurance" << " , " 
 		<< "IdDoctor" << " , " << "CellPhoneNumber" << " , " << "Answer" << endl;
 	int i = 0;
-	while (i < sizeRecoverable)
+	while (i < sizeRecoverable-1)
 	{
 		rRecoverable << listRecoverable[i].namePacientSecL << " , " << listRecoverable[i].lastNamePacientSecL << " , "
 			<< listRecoverable[i].dniSecL << " , " << listRecoverable[i].medicalInsuranceSecL << " , " << listRecoverable[i].idDoctorSecL
-			<< " , " << listRecoverable[i].cellphoneNumberSecL << " , " << "." << endl;
+			<< " , " << listRecoverable[i].cellphoneNumberSecL << " , " << listRecoverable[i].answerSecL << endl;
 		i++;
 	}
 	return;

@@ -233,7 +233,7 @@ string convertDateToString(time_t dato)
 
 	string dateSTR = to_string(dateTM->tm_mday)+ '/' + to_string(dateTM->tm_mon+1) + '/' + to_string(dateTM->tm_year+1900);
 
-	return dateSTR;9688
+	return dateSTR;
 
 }
 //le doy un time_t y me lo devuelve en string
@@ -349,12 +349,9 @@ string generateRandomAppDate()
 {
 	string newDate = "error"; //lo inicializo así por las dudas aunque no sé por qué no me guardaría la nueva fecha, de todos modos si no salió sabemos que es un error 
 
-	srand(time(NULL));
+	srand(NULL);
 	bool again = false;
-	double dummy;
-
-
-
+	
 	int year = rand() % 2 + 2023; //si es un 0 --> 2023; si es 1 --> 2024 asumo que no se puede programar una app para dentro de 25 años porque ya se murieron todos, abrazo // asumo que no pongo más para este año porque mis médicos tienen demora de un mes por la consulta y estamos en diciembre :))))
 	int month = rand() % 12 + 1;//me da un nro de 0 a 11 y lo cambio para que sea de 1 a 12 
 	int day;
