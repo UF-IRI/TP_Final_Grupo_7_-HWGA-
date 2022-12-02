@@ -36,8 +36,8 @@ secretaryList convertToSecretary(pacient paux, appointment* listApp, int sizeApp
 	newPacient.idDoctorSecL = aux.idDoctor;
 	newPacient.answerSecL = '.'; //lo lleno con un punto hasta que la secretaria lo contacte
 
-	if (i == sizeCon||newPacient.dniSecL==0) 
-		newPacient.dniSecL = 0; //en caso de error lleno el cajon del dni con un 0, despues hay que chequearlo
+	if (i == sizeCon)
+		newPacient.cellphoneNumberSecL = '0'; //en caso de error lleno el cajon del celular con un 0, significa que nunca lo encontre y si no lo encontre no lo voy a llamar no le voy a ir a tocar timbre.
 
 	return newPacient;
 
@@ -76,50 +76,55 @@ void pacientsUpdate(secretaryList*& recoverableList, int sizeRec, string*Insuran
 
 	for (int i = 0; i < sizeRec; i++)
 	{
-		for (a = 0; a < 10; a++) //llamo como maximo 10 veces a cada paciente
+		if (recoverableList[i].cellphoneNumberSecL != 0)
 		{
-			answered = rand() % 2; //0: no contesto, 1:contesto
-			if (answered == 1)
+			for (a = 0; a < 10; a++) //llamo como maximo 10 veces a cada paciente
 			{
-				comeBack = rand() % 2; //0:no va a volver, 1:quiere una nueva consulta
-				if (comeBack == 0)
-					recoverableList[i].answerSecL = "NoVaAVolver";
-				else
+				answered = rand() % 2; //0: no contesto, 1:contesto
+				if (answered == 1)
 				{
-					newAppDate = generateRandomAppDate();
-					if (!(newAppDate == "error"))
-					{
-						aux.dniPacient = recoverableList[i].dniSecL;
-						aux.dateAppointment = newAppDate;
-						aux.dateRequest = today; //hoy
-						aux.asistance = 0; //porque es a futuro asi que segurno no fue
-						aux.idDoctor = recoverableList[i].idDoctorSecL;
-						addAppointment(newApp, sizeNewApp, aux); //agrego la nueva consulta en la lista
-
-						recoverableList[i].answerSecL = "NuevaConsulta";
-
-						changeMI = rand() % 2;//0:no quiere cambiar su obra social, 1:la quiere cambiar
-						if (changeMI == 1)
-						{
-							string repeated = recoverableList[i].medicalInsuranceSecL;
-							do
-							{
-								newInsurance = rand() % sizeIL; 
-								recoverableList[i].medicalInsuranceSecL = InsuranceList[newInsurance];
-
-							} while (repeated == recoverableList[i].medicalInsuranceSecL); //para que no vuelva a ser la misma de antes
-						} 
-						//no tiene sentido agregar un else porque quedaria igual su obra social
-					}
+					comeBack = rand() % 2; //0:no va a volver, 1:quiere una nueva consulta
+					if (comeBack == 0)
+						recoverableList[i].answerSecL = "NoVaAVolver";
 					else
-						recoverableList[i].answerSecL = "NoSeGeneroUnaNuevaConsulta";
-				}
+					{
+						newAppDate = generateRandomAppDate();
+						if (!(newAppDate == "error"))
+						{
+							aux.dniPacient = recoverableList[i].dniSecL;
+							aux.dateAppointment = newAppDate;
+							aux.dateRequest = today; //hoy
+							aux.asistance = 0; //porque es a futuro asi que segurno no fue
+							aux.idDoctor = recoverableList[i].idDoctorSecL;
+							addAppointment(newApp, sizeNewApp, aux); //agrego la nueva consulta en la lista
 
-				break; //si contesto dejo de llamarlo y sigo con los demas pacientes
+							recoverableList[i].answerSecL = "NuevaConsulta";
+
+							changeMI = rand() % 2;//0:no quiere cambiar su obra social, 1:la quiere cambiar
+							if (changeMI == 1)
+							{
+								string repeated = recoverableList[i].medicalInsuranceSecL;
+								do
+								{
+									newInsurance = rand() % sizeIL;
+									recoverableList[i].medicalInsuranceSecL = InsuranceList[newInsurance];
+
+								} while (repeated == recoverableList[i].medicalInsuranceSecL); //para que no vuelva a ser la misma de antes
+							}
+							//no tiene sentido agregar un else porque quedaria igual su obra social
+						}
+						else
+							recoverableList[i].answerSecL = "NoSeGeneroUnaNuevaConsulta";
+					}
+
+					break; //si contesto dejo de llamarlo y sigo con los demas pacientes
+				}
 			}
+			if (a == 10)
+				recoverableList[i].answerSecL = "NoContesto";
 		}
-		if (a == 10)
-			recoverableList[i].answerSecL = "NoContesto";
+		else
+			recoverableList[i].answerSecL = "NoTengoSuTelefono";
 	}
 
 	delete[] InsuranceList;
