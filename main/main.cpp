@@ -73,6 +73,9 @@ int main()
 	listRecoverable = NULL;
 
 	//LEO EL ARCHIVO PARA PASARLO A MEMORIA DINÁMICA
+	//nos parece poco eficiente tener que pasarle un archivo a la secretaría para tener que volver 
+	//a abrirlo, leerlo en un array y guardarlo en memoria cuando directamente le podríamos haber pasado la lista que teníamos desde antes. 
+	//Igualmente la consigna dice que se debe escribir un archivo para pasar a la secretaría y que posteriormente sea modificado. 
 	fstream newrRecoverable;
 	int newSizeRecoverable=0;
 	secretaryList* newListRecoverable = new secretaryList[newSizeRecoverable];
@@ -80,24 +83,37 @@ int main()
 	readFileRecoverable(newrRecoverable, newListRecoverable, newSizeRecoverable);
 	newrRecoverable.close();
 
-
-	//secretaria falta q labures vos
+	//me creo un array con la os con las que trabaja el hospital
 	int sizeInsuranceList = 0;
 	string* insuranceList = new string[sizeInsuranceList]; //lista dinamica con las obras sociales
 	generateInsuranceList(listPac, sizePac, insuranceList, sizeInsuranceList); //genera una lista con las obras sociales
 
+	//PARA HACER EL APPEND EN EL ARCHIVO DE CONSULTAS CON LAS NUEVAS
 	int sizeNewAppointments = 0;
-	appointment* listNewppointments = new appointment[sizeNewAppointments];
-	pacientsUpdate(listRecoverable, sizeRecoverable, insuranceList, sizeInsuranceList, listNewppointments, sizeNewAppointments);
+	appointment* listNewAppointments = new appointment[sizeNewAppointments];
+	pacientsUpdate(newListRecoverable, newSizeRecoverable, insuranceList, sizeInsuranceList, listNewAppointments, sizeNewAppointments);
+	
+	fstream fApp2;
+	fApp2.open(routeApp, ios::app);
+	appendAppointment(fApp2, listNewAppointments, sizeNewAppointments);
+	fApp2.close();
 
-	//hay que hacer el append de consultas
-	//hay que ver lo que nos diga lucas con el archivo de secretaria
-
+	//SOBREESCRIVO EL ARCHIVO DE SECRETARÍA
+	fstream newrRecoverable2;
+	newrRecoverable2.open(routeRecoverable, ios::out); //abro el archivo de recuperables para escritura
+	writeFileRecoverable(newrRecoverable2, newSizeRecoverable, newListRecoverable); //escribo el archivo recuperables a partir de la lista recuperables
+	newrRecoverable2.close();
+	delete[]newListRecoverable; //libera la memoria de la lista de recuperables
+	newListRecoverable = NULL;
 
 	//LIBERO MEMORIA
 	delete[] listCon;
+	listCon = NULL;
 	delete[] listApp;
+	listApp = NULL;
 	delete[] listDoc;
+	listDoc = NULL;
 	delete[] listPac;
-	delete[] newListRecoverable;
+	listPac = NULL;
+	
 }

@@ -76,7 +76,7 @@ void pacientsUpdate(secretaryList*& recoverableList, int sizeRec, string*Insuran
 
 	for (int i = 0; i < sizeRec; i++)
 	{
-		if (recoverableList[i].cellphoneNumberSecL != 0)
+		if (recoverableList[i].cellphoneNumberSecL != "0")
 		{
 			for (a = 0; a < 10; a++) //llamo como maximo 10 veces a cada paciente
 			{
