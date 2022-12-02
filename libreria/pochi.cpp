@@ -331,10 +331,12 @@ int keepingUpWithThePacients(pacient paux, int sizeListApp, appointment* listApp
 				}
 				else //fue hace más de 10 años --> no lo puedo recuperar
 					category = 2;
+				break;
 			}
 			case 2://la fecha más nueva es la de la app --> todavía no fue 
 			{
-				category = 3; //tiene programada una appointment para el futuro --> no me importa
+				category = 3;//tiene programada una appointment para el futuro --> no me importa
+				break;
 			}
 			}
 		}

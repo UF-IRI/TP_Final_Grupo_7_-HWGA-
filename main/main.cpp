@@ -78,7 +78,8 @@ int main()
 	appointment* listNewppointments = new appointment[sizeNewAppointments];
 	pacientsUpdate(listRecoverable, sizeRecoverable, insuranceList, sizeInsuranceList, listNewppointments, sizeNewAppointments);
 
-
+	//hay que hacer el append de consultas
+	//hay que ver lo que nos diga lucas con el archivo de secretaria
 
 
 	//LIBERO MEMORIA
