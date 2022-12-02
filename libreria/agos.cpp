@@ -19,7 +19,7 @@ secretaryList convertToSecretary(pacient paux, appointment* listApp, int sizeApp
 	newPacient.lastNamePacientSecL = paux.lastNAmePacient;
 	newPacient.dniSecL = paux.dni;
 	newPacient.medicalInsuranceSecL = paux.idInsurance;
-	newPacient.cellphoneNumberSecL = "0"; //inicializo en 0 por si nunca lo encuentra
+	newPacient.cellphoneNumberSecL = '0'; //inicializo en 0 por si nunca lo encuentra
 
 	int i;
 
