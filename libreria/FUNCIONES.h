@@ -121,14 +121,6 @@ void appendAppointment(fstream &appAppointment, appointment* newAppointments, in
 */
 
 
-/*DUDAS: (agos)
-
- cuando llenamos la lista de recuperables hay que chequear que el dni sea distinto de 0 (es lo que llena en caso de error la de convert to ssecretary) y si es 0 directamente no lo agrego pq no lo puedo llamar
- hay que ver en donde llamar a la funcion de secretaria por los parametros que recibe
- despues de llamar a secretaria habria que sobreescribir la lista de recuperables
- el append del archivo de consultas hay que llamarlo en el main pq recibe un fstream, lo mismo con la de sobreescribir los datos de la lista de recup
-*/
-
 
 
 
