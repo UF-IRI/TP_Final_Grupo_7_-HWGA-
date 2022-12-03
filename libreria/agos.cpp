@@ -75,6 +75,7 @@ void pacientsUpdate(secretaryList*& recoverableList, int sizeRec, string*Insuran
 	string today = convertDateToString(current); //la paso a string 
 	string newAppDate;
 
+	srand(time(NULL));
 	for (int i = 0; i < sizeRec; i++)
 	{
 		if (recoverableList[i].cellphoneNumberSecL != "0") //significaría que no existe el contacto en el archivo 
@@ -89,7 +90,8 @@ void pacientsUpdate(secretaryList*& recoverableList, int sizeRec, string*Insuran
 						recoverableList[i].answerSecL = "NoVaAVolver";
 					else
 					{
-						newAppDate = generateRandomAppDate();
+						int x = rand() % 100; //pongo limite x las dudas pero no se si es necesario;
+						newAppDate = generateRandomAppDate(x);
 						if (!(newAppDate == "error"))
 						{
 							aux.dniPacient = recoverableList[i].dniSecL;
