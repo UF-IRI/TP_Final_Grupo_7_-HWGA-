@@ -2,7 +2,7 @@
 #include "FUNCIONES.h"
 #include "iri.cpp"
 namespace Casos_Base::tests 
-	
+
 {
 	TEST(convertDateToTimeT, test)
 	{
@@ -222,7 +222,6 @@ namespace Casos_Base::tests
 		EXPECT_EQ(auxSec.medicalInsuranceSecL, aux.idInsurance);
 		EXPECT_EQ(auxSec.namePacientSecL, aux.namePacient);
 		EXPECT_EQ(auxSec.lastNamePacientSecL, aux.lastNAmePacient);
-		//EXPECT_EQ(auxSec.answerSecL, '.');
 		EXPECT_EQ(auxSec.cellphoneNumberSecL, "+54(754)14065272");
 		EXPECT_EQ(auxSec.idDoctorSecL, lastAppDate.idDoctor);
 
@@ -266,7 +265,6 @@ namespace Casos_Base::tests
 		EXPECT_EQ(auxSec.medicalInsuranceSecL, aux.idInsurance);
 		EXPECT_EQ(auxSec.namePacientSecL, aux.namePacient);
 		EXPECT_EQ(auxSec.lastNamePacientSecL, aux.lastNAmePacient);
-		//EXPECT_EQ(auxSec.answerSecL, '.');
 		EXPECT_EQ(auxSec.cellphoneNumberSecL, "+54(221)19935438");
 		EXPECT_EQ(auxSec.idDoctorSecL, lastAppDate.idDoctor);
 
