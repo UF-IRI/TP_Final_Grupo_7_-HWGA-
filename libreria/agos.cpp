@@ -41,6 +41,7 @@ secretaryList convertToSecretary(pacient paux, appointment* listApp, int sizeApp
 	return newPacient;
 
 }
+//convierte un paciente al struct de secretaria 
 
 void appendAppointment(fstream& appAppointment, appointment* newAppointments, int howMany) //para agregar las nuevas consultas programadas en el archivo de consultas
 {
@@ -54,6 +55,7 @@ void appendAppointment(fstream& appAppointment, appointment* newAppointments, in
 
 	return;
 }
+//agrega en el archivo de consultas los nuevos turnos generados por la secretaría
 
 void pacientsUpdate(secretaryList*& recoverableList, int sizeRec, string*InsuranceList, int sizeIL, appointment*&newApp, int &sizeNewApp) //funcion de actualizacion de datos
 {
@@ -130,6 +132,7 @@ void pacientsUpdate(secretaryList*& recoverableList, int sizeRec, string*Insuran
 	InsuranceList = NULL;
 
 }
+//funcion de llamado de pacientes para cambiar sus datos, generar nuevas consultas o informar que ya no van a volver a atenderse en el hospital
 
 void writeLists(pacient* totalList, int totalSize, pacient*& listUnrecoverable, int& sizeUnrecoverable, secretaryList*& listRecoverable, int& sizeRecoverable, int sizeApp, appointment* listApp, contact*listCon, int sizeCon)
 {
