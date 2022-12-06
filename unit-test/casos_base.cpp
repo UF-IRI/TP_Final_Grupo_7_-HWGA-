@@ -4,7 +4,7 @@
 namespace Casos_Base::tests 
 
 {
-	/*
+	
 	TEST(convertDateToTimeT, test)
 	{
 		tm day{};//la inicializo en tm para pasarla a time_t y es string para verificar que me den lo mismo
@@ -143,7 +143,7 @@ namespace Casos_Base::tests
 		list = NULL;
 
 	}
-	*/
+	
 
 	TEST(generateInsuranceList, test)
 	{
@@ -209,7 +209,7 @@ namespace Casos_Base::tests
 		listPacients = NULL;
 	}
 	
-	/*
+	
 	TEST(convertToSecretary, test1)
 	{
 		//lleno la lista de appointments
@@ -301,6 +301,6 @@ namespace Casos_Base::tests
 		delete[]listApp;
 		listApp = NULL;
 	}
-	*/
+	
 
 }
