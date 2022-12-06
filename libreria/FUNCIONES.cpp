@@ -459,6 +459,7 @@ string generateRandomAppDate(int x)
 	newDate = '0';
 	return newDateRet;
 }
+//genera una fecha de consulta random para los nuevos turnos
 
 //AUXILIARES
 string UP(string word)
