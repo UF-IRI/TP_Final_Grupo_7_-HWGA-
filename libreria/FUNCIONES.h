@@ -66,14 +66,14 @@ typedef struct {
 void readPac(fstream &rPac, pacient*&listPac, int&sizePac);
 void readCon(fstream &rCon, contact*& listCon, int& sizeCon);
 void readApp(fstream &rApp, appointment*& listApp, int& sizeApp);
-void readDoc(fstream &rDoc, doctor*& listDoc, int& sizeDoc);
+//void readDoc(fstream &rDoc, doctor*& listDoc, int& sizeDoc);
 void readFileRecoverable(fstream& newrRecoverable, secretaryList*& newListRecoverable, int& sizeNewListRecoverable);
 
 //RESIZE:
 void addPacient(pacient*& listP, int& sizeP, pacient auxP);
 void addAppointment(appointment*& listApp, int& sizeApp, appointment auxApp);
 void addContact(contact*& listCon, int& sizeCon, contact auxCon);
-void addDoctor(doctor*& listDoc, int& sizeDoc, doctor auxDoc);
+//void addDoctor(doctor*& listDoc, int& sizeDoc, doctor auxDoc);
 void addSecretary(secretaryList*& listSec, int& sizeSec, secretaryList auxSec);
 void addString(string*& list, int& size, string auxStr);
 
@@ -94,16 +94,15 @@ string generateRandomAppDate(int x);
 //AUXILIARES:
 string UP(string word);//pasa a mayuscula una palabra
 void generateInsuranceList(pacient* totalList, int sizeTotal, string*& listIn, int& sizeIn);
-string searchDoc(string idLastDoc, doctor* listDoc, int sizeDoc);
 
 //ESCRIBIR ARCHIVOS:
 void writeFileUnrecoverable(fstream &rUnrecoverable, int sizeUnrecoverable, pacient* listUnrecoverable);
 void writeFileRecoverable(fstream &rRecoverable, int sizeRecoverable, secretaryList* listRecoverable);
+void appendAppointment(fstream &appAppointment, appointment* newAppointments, int howMany);
 
 //SECRETARÍA
 secretaryList convertToSecretary(pacient paux, appointment* listApp, int sizeApp, contact* listCon, int sizeCon); //le paso un paciente y me lo convierte en el struct secretaría
 void pacientsUpdate(secretaryList*& recoverableList, int sizeRec, string* InsuranceList, int sizeIL, appointment*& newApp, int& sizeNewApp);
-void appendAppointment(fstream &appAppointment, appointment* newAppointments, int howMany);
 
 
 

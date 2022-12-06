@@ -20,7 +20,6 @@ namespace Casos_Base::tests
 
 	}
 	
-	
 	TEST(compareDates, caso1)
 	{
 		double dummy;
@@ -144,7 +143,6 @@ namespace Casos_Base::tests
 
 	}
 	
-
 	TEST(generateInsuranceList, test)
 	{
 		int sizeIL = 0;
@@ -208,7 +206,6 @@ namespace Casos_Base::tests
 		delete[]listPacients;
 		listPacients = NULL;
 	}
-	
 	
 	TEST(convertToSecretary, test1)
 	{

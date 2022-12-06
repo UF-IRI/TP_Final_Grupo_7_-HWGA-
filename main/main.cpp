@@ -7,17 +7,14 @@ int main()
 {
 	fstream rPac;
 	fstream rCon;
-	fstream rDoc;
 	fstream rApp;
 
 	int sizePac = 0;
 	int sizeCon = 0;
-	int sizeDoc = 0;
 	int sizeApp = 0;
 
 	string routePac = (BASE_PATH + "../data_files/input/Pacientes.csv"); //queda lindo y funciona 10 puntos
 	string routeCon = (BASE_PATH + "../data_files/input/Contactos.csv");
-	string routeDoc = (BASE_PATH + "../data_files/input/Medicos.csv");
 	string routeApp = (BASE_PATH + "../data_files/input/Consultas.csv");
 
 	
@@ -35,12 +32,6 @@ int main()
 	appointment* listApp = new appointment[sizeApp]; 
 	readApp(rApp, listApp, sizeApp);//me lleno la lista de consultas
 	rApp.close();
-
-	rDoc.open(routeDoc, ios::in);
-	doctor* listDoc = new doctor[sizeDoc]; 
-	readDoc(rDoc, listDoc, sizeDoc);//me lleno la lista de medicos
-	rDoc.close();
-	
 
 	//me creo las listas de recuperables e irrecuperables
 	int sizeUnrecoverable = 0;
@@ -112,8 +103,6 @@ int main()
 	listCon = NULL;
 	delete[] listApp;
 	listApp = NULL;
-	delete[] listDoc;
-	listDoc = NULL;
 	delete[] listPac;
 	listPac = NULL;
 	
